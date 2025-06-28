@@ -66,7 +66,22 @@ def save_all_canvas_data():
 
 def page_confirmation():
     consent_data = load_patient_data()
-
+    # 여백 제거 및 container 최대 폭 확장
+    st.markdown("""
+        <style>
+        .block-container {
+            padding: 0rem;
+            max-width: 100% !important;
+            padding-bottom: 2rem;
+        }
+        .form-wrapper {
+            max-width: 800px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 0rem;
+        }
+        </style>
+    """, unsafe_allow_html=True)
     # Create columns to center the content
     col1, col2, col3 = st.columns([1, 4, 1])
     with col2:  # Place all content in the middle column

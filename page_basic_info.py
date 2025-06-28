@@ -26,7 +26,7 @@ def page_basic_info():
     st.markdown("""
         <style>
         .block-container {
-            padding: 1rem;
+            padding: 0rem;
             max-width: 100% !important;
         }
         .form-wrapper {
@@ -42,9 +42,10 @@ def page_basic_info():
         <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>Reference Textbook 조회를 위한 기본 정보를 입력해주세요.</h2>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1, 3, 1]) 
+    col1, col2, col3 = st.columns([1, 6, 1]) 
     with col2:
         with st.form("basic_info_form"):
+            st.markdown("### 0. 수술 기본 정보")
             surgery_name = st.selectbox(
                 "수술명",
                 [
@@ -108,7 +109,7 @@ def page_basic_info():
                 with col3:
                     st.text_input("진료과목", key=f"department_{i}")
 
-            st.markdown("**1. 환자 상태 및 특이사항**")
+            st.markdown("### 1. 환자 상태 및 특이사항")
 
             col1, col2 = st.columns(2)
             with col1:
@@ -311,37 +312,3 @@ def page_basic_info():
     if possum:  
         st.session_state.show_possum = True
         st.rerun()
-
-url = "http://10.104.198.155:8000/consent"
-headers = {"Content-Type": "application/json"}
-payload = { \
-  "registration_no": "123", \
-  "patient_name": "김환자", \
-  "age": 45, \
-  "gender": "M", \
-  "scheduled_date": "2025-07-01", \
-  "diagnosis": "Cholelithiasis", \
-  "surgical_site_mark": "RUQ", \
-  "participants": [ \
-    { "is_lead": True, "is_specialist": True, "department": "GS" } \
-  ], \
-  "patient_condition": "Stable", \
-  "special_conditions": { \
-    "past_history": False, \
-    "diabetes": False, \
-    "smoking": True, \
-    "hypertension": False, \
-    "allergy": False, \
-    "cardiovascular": True, \
-    "respiratory": False, \
-    "coagulation": False, \
-    "medications": False, \
-    "renal": False, \
-    "drug_abuse": False, \
-    "other": None \
-  }, \
-  "possum_score": { \
-    "mortality_risk": 0.22, \
-    "morbidity_risk": 5.47 \
-  } \
-}

@@ -10,24 +10,16 @@ import pdfkit
 import os
 
 def canvas_to_base64(canvas_key):
-    """Convert canvas image data to base64 string"""
-    if canvas_key in st.session_state:
-        canvas_result = st.session_state[canvas_key]
-        if hasattr(canvas_result, 'image_data') and canvas_result.image_data is not None:
-            # Convert RGBA to RGB if necessary
-            img_array = canvas_result.image_data.astype(np.uint8)
-            if img_array.shape[2] == 4:  # RGBA
-                # Create white background and composite
-                background = np.ones((img_array.shape[0], img_array.shape[1], 3), dtype=np.uint8) * 255
-                alpha = img_array[:, :, 3:4] / 255.0
-                img_array = img_array[:, :, :3] * alpha + background * (1 - alpha)
-                img_array = img_array.astype(np.uint8)
-            
-            img = Image.fromarray(img_array)
-            buffered = io.BytesIO()
-            img.save(buffered, format="PNG")
-            img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
-            return f'<img src="data:image/png;base64,{img_str}" width="750" style="margin-bottom:12px; border:1px solid #ddd;"><br>'
+    """Convert canvas image to base64 HTML img tag"""
+    if f"{canvas_key}_image" in st.session_state:
+        img_array = st.session_state[f"{canvas_key}_image"].astype(np.uint8)
+        if img_array.shape[2] == 4:  # Remove alpha channel if RGBA
+            img_array = img_array[:, :, :3]
+        img = Image.fromarray(img_array)
+        buffered = io.BytesIO()
+        img.save(buffered, format="PNG")
+        img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+        return f'<img src="data:image/png;base64,{img_str}" width="750" style="margin-bottom:12px;"><br>'
     return ""
 
 def collect_all_content():
@@ -157,7 +149,6 @@ def collect_all_content():
         canvas_html = canvas_to_base64(f"canvas_3_{i}")
         if canvas_html:
             full_html += canvas_html
-
     # Section 4
     full_html += "<h3>4. 수술의 목적/필요성/효과</h3>"
     full_html += f"<p>{st.session_state.get('purpose', '')}</p>"
