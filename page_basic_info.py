@@ -4,9 +4,10 @@ from components.buttons import big_green_button
 
 def page_basic_info():
     st.set_page_config(layout="wide")
+    st.markdown("""
+        <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>Reference Textbook 조회를 위한 기본 정보를 입력해주세요.</h2>
+    """, unsafe_allow_html=True)
 
-    st.markdown("<h2>Reference Textbook 조회를 위한 기본 정보를 입력해주세요.</h2>", unsafe_allow_html=True)
-    
     with st.form("basic_info_form"):
         surgery_name = st.selectbox(
             "수술명",
@@ -53,7 +54,7 @@ def page_basic_info():
         with col5: #수술부위표시
             surgery_site = st.radio("수술부위표시", ["R", "L", "Both", "해당없음"], horizontal=True)
         with col6: #수술부위
-            surgery_site_detail = st.text_input("수술부위", placeholder="[예: 좌측 하복부 등]")
+            surgery_site_detail = st.text_input("수술부위", placeholder="예: 좌측 하복부 등")
         
         # 집도의, 전문의 여부, 진료과목
         st.markdown("**※ 참여 의료진 (집도의가 다수인 경우 모두 기재해 주시기 바랍니다.)**")
@@ -73,7 +74,6 @@ def page_basic_info():
                 st.text_input("진료과목", key=f"department_{i}")
 
         st.markdown("**1. 환자 상태 및 특이사항**")
-<<<<<<< Updated upstream:pages/page_basic_info.py
 
         col1, col2 = st.columns(2)
         with col1:
@@ -92,27 +92,10 @@ def page_basic_info():
             cardiovascular = st.radio("심혈관질환", ["유", "무"], index=1, horizontal=True)
             coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], index=1, horizontal=True)
             kidney = st.radio("신장질환", ["유", "무"], index=1, horizontal=True)
-            etc = st.text_area("기타", height=100, placeholder="기타 특이사항이 있다면 기재해 주세요. 자세할수록 레퍼런스 조회가 용이합니다.")
+            possum = st.form_submit_button("POSSUM 점수 계산", help="수술의 위험도를 평가하기 위한 POSSUM 점수를 계산합니다.")
+        
+        etc = st.text_area("기타", placeholder="환자의 상태나 기타 특이사항이 있다면 기재해 주세요. 자세할수록 레퍼런스 조회가 용이합니다.\n단, 환자명 등의 개인 식별 정보는 기재하지 말아주세요.")
 
-=======
-        past_history = st.radio("과거병력(질병/상해/수술)", ["유", "무"], horizontal=True)
-        diabetes = st.radio("당뇨병", ["유", "무"], horizontal=True)
-        smoking = st.radio("흡연유무", ["유", "무"], horizontal=True)
-        hypertension = st.radio("고혈압", ["유", "무"], horizontal=True)
-        allergy = st.radio("알레르기 등의 특이체질", ["유", "무"], horizontal=True)
-        hypotension = st.radio("저혈압", ["유", "무"], horizontal=True)
-        airway_abnormality = st.radio("기도이상", ["유", "무"], horizontal=True)
-        cardiovascular = st.radio("심혈관질환", ["유", "무"], horizontal=True)
-        respiratory = st.radio("호흡기질환", ["유", "무"], horizontal=True)
-        coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], horizontal=True)
-        medication = st.radio("복용약물", ["유", "무"], horizontal=True)
-        kidney = st.radio("신장질환", ["유", "무"], horizontal=True)
-        drug_abuse = st.radio("마약복용 혹은 약물사고", ["유", "무"], horizontal=True)
-        etc = st.text_input("기타")
-        
-       
-        
->>>>>>> Stashed changes:page_basic_info.py
         submitted = big_green_button("수술 동의서 생성하기")
         if submitted:
             # 집도의 목록 수집
@@ -150,11 +133,7 @@ def page_basic_info():
                 "복용약물": medication,
                 "신장질환": kidney,
                 "마약복용 혹은 약물사고": drug_abuse,
-                "기타": etc,
-<<<<<<< Updated upstream:pages/page_basic_info.py
-                
-=======
->>>>>>> Stashed changes:page_basic_info.py
+                "기타": etc
             }
             # Save as JSON file for LLM prompt
             with open("patient_data.json", "w", encoding="utf-8") as f:
@@ -162,3 +141,6 @@ def page_basic_info():
             st.success("데이터가 patient_data.json 파일로 저장되었습니다.")
             st.session_state.step = 1
             st.rerun()
+        elif possum:
+            # Perform your calculations or actions here
+            st.write("Calculating POSSUM score...")

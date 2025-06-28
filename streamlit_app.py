@@ -31,6 +31,7 @@ if "step" not in st.session_state:
     st.session_state.step = -1  # -1 for main page
 
 # Header
+st.set_page_config(layout="wide")
 render_header()
 
 if st.session_state.step == -1:

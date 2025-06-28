@@ -23,7 +23,7 @@ def render_header():
         </style>
 
         <div class="header-bar">
-            <span class="logo">TrustSurgy</span>
+            <span class="logo">SurgiForm</span>
             <span class="user-info">
                 장재율 교수님, 안녕하세요
                 🛠️ 👤

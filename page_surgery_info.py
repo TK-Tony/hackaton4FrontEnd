@@ -37,12 +37,11 @@ def chatbot_modal():
         st.rerun()
 
 def page_surgery_info():
+    st.set_page_config(layout="wide")
     st.markdown("""
-        <h2 style='text-align:center; color:#176d36; margin-top:0;'>Reference Textbook을 기반으로 작성된 수술 관련 정보입니다.<br>확인 후 수정사항이 있으면 반영한 후 확정해주세요.</h2>
-        <div style="margin: 0 auto; width: 1100px; background: #fff; border-radius: 12px; padding: 36px 36px 24px 36px; box-shadow: 0 0 12px #eee;">
+        <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>Reference Textbook을 기반으로 작성된 수술 관련 정보입니다.<br>확인 후 수정사항이 있으면 반영한 후 확정해주세요.</h2>
     """, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
+    
     with st.form("surgery_info_form"):
         section_labels = [
             "2. 예정된 수술을 하지 않을 경우의 예후",
@@ -67,7 +66,7 @@ def page_surgery_info():
             st.markdown(f"<div style='font-weight:bold; margin-top:28px; margin-bottom:4px;'>{label}</div>", unsafe_allow_html=True)
             answers[key] = st.text_area(
                 label="",
-                value="GPT가 생성한 여러 정보가 줄글로 적히고\n수정을 할 수 있는 여지를 두면 좋을 것 같습니다!",
+                value="Reference 조회 후 생성된 수술 관련 정보입니다.\n수정 사항이 있을 경우 반영하실 수 있습니다.",
                 height=120,
                 key=f"surgery_info_{key}"
             )
