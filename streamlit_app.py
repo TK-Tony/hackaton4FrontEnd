@@ -11,7 +11,7 @@ from pages.page_pdf_success import page_pdf_success
 
 STEP_LABELS = [
     "Basic Information",
-    "Basic Information",
+    "Surgery Information",
     "Confirmation",
     "Change to PDF",
     "Success"
