@@ -9,6 +9,11 @@ from page_confirmation import page_confirmation
 from page_pdf_progress import page_pdf_progress
 from page_pdf_success import page_pdf_success
 
+from page_basic_info import page_basic_info
+from possum_calculator import main as possum_main
+
+if "show_possum" not in st.session_state:
+    st.session_state.show_possum = False
 STEP_LABELS = [
     "Basic Information",
     "Surgery Information",
@@ -33,16 +38,19 @@ if "step" not in st.session_state:
 # Header
 render_header()
 
-if st.session_state.step == -1:
-    # Show main page first
-    if page_main():
-        st.session_state.step = 0
-        st.rerun()
+if st.session_state.show_possum:
+    possum_main()  # Show the POSSUM calculator
+elif st.session_state.step == 3:  # PDF 생성 단계
+    page_pdf_progress()
 else:
-    # Stepper navigation bar (no 'default' argument!)
-    val = stx.stepper_bar(steps=STEP_LABELS, lock_sequence=False)
-    if val != st.session_state.step:
-        st.session_state.step = val
-        st.rerun()
-    # Show the current page
-    PAGE_FUNCS[st.session_state.step]()
+    # Your existing stepper logic
+    if st.session_state.step == -1:
+        if page_main():
+            st.session_state.step = 0
+            st.rerun()
+    else:
+        val = stx.stepper_bar(steps=STEP_LABELS, lock_sequence=False)
+        if val != st.session_state.step:
+            st.session_state.step = val
+            st.rerun()
+        PAGE_FUNCS[st.session_state.step]()

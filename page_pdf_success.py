@@ -8,4 +8,4 @@ def page_pdf_success():
         st.markdown('<h3 class="main-title">PDF 출력이 완료되었습니다.<br>항상 환자를 위한 헌신에 감사드립니다.</h3>', unsafe_allow_html=True)
     if st.button("메인화면으로"):
         st.session_state.step = 0
-        st.experimental_rerun()
+        st.rerun()
