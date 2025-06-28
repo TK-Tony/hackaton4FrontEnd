@@ -2,6 +2,8 @@ import streamlit as st
 from components.buttons import big_green_button
 
 def page_surgery_info():
+    st.set_page_config(layout="wide")
+
     st.markdown('<h2 class="main-title">Reference Textbook을 기반으로 작성된 수술 관련 정보입니다.<br>확인 후 수정사항이 있으면 반영한 후 확정해주세요.</h2>', unsafe_allow_html=True)
     with st.form("surgery_info_form"):
         st.markdown("**2. 예정된 수술을 하지 않을 경우의 예후**")

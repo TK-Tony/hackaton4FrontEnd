@@ -92,8 +92,7 @@ def page_basic_info():
             cardiovascular = st.radio("심혈관질환", ["유", "무"], index=1, horizontal=True)
             coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], index=1, horizontal=True)
             kidney = st.radio("신장질환", ["유", "무"], index=1, horizontal=True)
-            etc = st.text_input("기타")
-
+            etc = st.text_area("기타", height=100)
 
         submitted = big_green_button("수술 동의서 생성하기")
         if submitted:
@@ -117,8 +116,8 @@ def page_basic_info():
                 "나이/성별": age_gender,
                 "진단명": diagnosis,
                 "수술부위표시": surgery_site,
-                "수술부위": surgery_site_detail,
-                "의료진": doctors,
+                "수술부위": surgery_site_detail, #추가함
+                "의료진": doctors, #리스트로 받아야 해서 변경됨
                 "과거병력": past_history,
                 "당뇨병": diabetes,
                 "흡연유무": smoking,
