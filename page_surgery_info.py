@@ -146,114 +146,178 @@ def chatbot_modal():
     
 
 def page_surgery_info():
+    st.set_page_config(layout="wide")
     # Initialize session state at the beginning of the page
     initialize_session_state()
-    col1, col2, col3 = st.columns([1, 4, 1])
+    # 여백 제거 및 container 최대 폭 확장
+    st.markdown("""
+        <style>
+        .block-container {
+            padding: 0rem;
+            max-width: 100% !important;
+            padding-bottom: 2rem;
+        }
+        .form-wrapper {
+            max-width: 800px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 0rem;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown(
+        "<h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>Reference Textbook을 기반으로 작성된 수술 관련 정보입니다.<br>확인 후 수정사항이 있으면 반영한 후 확정해주세요.</h2>",
+        unsafe_allow_html=True
+    )
+    col1, col2, col3 = st.columns([1, 6, 1])
     with col2:  # Place all content in the middle column
-        st.markdown(
-            "<h2 style='text-align:center; color:#176d36; margin-top:0;'>Reference Textbook을 기반으로 작성된 수술 관련 정보입니다.<br>확인 후 수정사항이 있으면 반영한 후 확정해주세요.</h2>",
-            unsafe_allow_html=True
-        )
-        
-        with st.form("surgery_info_form"):
-            # Use dividers to create clear, formal sections
-            st.markdown("### 2. 예정된 수술/시술/검사를 하지 않을 경우의 예후")
-            st.text_area("", 
-                        value=st.session_state.get("no_surgery_prognosis", ""), 
-                        key="no_surgery_prognosis", 
-                        height=120)
-            
-            st.divider()
-            st.markdown("### 3. 예정된 수술 이외의 시행 가능한 다른 방법")
-            st.text_area("", 
-                        value=st.session_state.get("alternative_methods", ""), 
-                        key="alternative_methods", 
-                        height=120)
-            
-            st.divider()
-            st.markdown("### 4. 수술 목적/필요/효과")
-            st.text_area("", 
-                        value=st.session_state.get("purpose", ""), 
-                        key="purpose", 
-                        height=120)
-            
-            st.divider()
-            st.markdown("### 5. 수술 방법 및 내용")
-            
-            st.markdown("**1) 수술 과정 전반에 대한 설명**")
-            st.text_area("과정 설명", 
-                        value=st.session_state.get("method_1", ""), 
-                        key="method_1", 
-                        height=120, 
-                        label_visibility="collapsed")
-            
-            st.markdown("**2) 수술 추정 소요시간**")
-            st.text_area("예상 소요시간", 
-                        value=st.session_state.get("method_2", ""), 
-                        key="method_2", 
-                        height=120, 
-                        label_visibility="collapsed")
-            
-            st.markdown("**3) 수술 방법 변경 및 수술 추가 가능성**")
-            st.markdown(
-                """
-                > 수술/시술/검사과정에서 환자의 상태에 따라 부득이하게 수술/시술/검사방법이 변경되거나 수술/시술/검사범위가 추가될 수 있습니다. 
-                > 이 경우, 환자 또는 대리인에게 추가로 설명하여야 하는 사항이 있는 경우에는 수술/시술/검사의 시행 전에 이에 대하여 설명하고 동의를 얻도록 합니다. 
-                > 다만, 수술/시술/검사의 시행 도중에 환자의 상태에 따라 미리 설명하고 동의를 얻을 수 없을 정도로 긴급한 변경 또는 추가가 요구되는 경우에는 
-                > 시행 후에 지체 없이 그 사유 및 결과를 환자 또는 대리인에게 설명하도록 합니다.
-                """
-            )
 
-            
-            st.markdown("**4) 수혈 가능성**")
-            st.text_area("수혈 가능성 및 관련 정보",
-                        value=st.session_state.get("method_4", ""),
-                        key="method_4",
-                        height=120,
-                        label_visibility="collapsed")
-            
-            st.markdown("**5) 집도의 변경 가능성**")
-            st.markdown(
-                """
-                > 위에 기재된 참여 의료진이 있는 경우 수술/시술/검사과정에서 환자의 상태 또는 의료기관의 사정(응급환자 진료, 주치의의 질병·출장 등)에 따라 
-                > 부득이하게 주치의(집도의)가 변경될 수 있습니다. 이 경우 시행 전에 환자 또는 대리인에게 구체적인 변경사유를 설명하고 동의를 얻을 예정입니다. 
-                > 다만, 시행 도중에 미리 설명하고 동의를 얻을 수 없을 정도로 긴급한 변경이 요구되는 경우에는 시행 후에 
-                > 지체 없이 구체적인 변경 사유 및 시행결과를 환자 또는 대리인에게 설명하도록 합니다.
-                """
-            )
+        tabs = st.tabs(["수술 정보", "출처 보기"])
 
-            st.divider()
-            st.markdown("### 6. 발생 가능한 합병증/후유증/부작용")
-            st.text_area("",
-                        value=st.session_state.get("complications", ""),
-                        key="complications",
-                        height=120)
-            
-            st.divider()
-            st.markdown("### 7. 문제 발생시 조치사항")
-            st.text_area("",
-                        value=st.session_state.get("preop_care", ""),
-                        key="preop_care",
-                        height=120)
-            
-            st.divider()
-            st.markdown("### 8. 진단/수술 관련 사망 위험성")
-            st.text_area("",
-                        value=st.session_state.get("mortality_risk", ""),
-                        key="mortality_risk",
-                        height=120)
-            
-            st.divider()
-            
-            submitted = st.form_submit_button(
-                "수술 내용 확정 및 동의서 출력 단계로",
-                use_container_width=True,
-                type="primary"
-            )
-            if submitted:
-                st.session_state.step = 2
-                st.rerun()
-    
+        with tabs[0]:  # 입력 폼 탭
+            with st.form("surgery_info_form"):
+                # Use dividers to create clear, formal sections
+                st.markdown("### 2. 예정된 수술/시술/검사를 하지 않을 경우의 예후")
+                st.text_area("", 
+                            value=st.session_state.get("no_surgery_prognosis", ""), 
+                            key="no_surgery_prognosis", 
+                            height=120)
+                
+                st.divider()
+                st.markdown("### 3. 예정된 수술 이외의 시행 가능한 다른 방법")
+                st.text_area("", 
+                            value=st.session_state.get("alternative_methods", ""), 
+                            key="alternative_methods", 
+                            height=120)
+                
+                st.divider()
+                st.markdown("### 4. 수술 목적/필요/효과")
+                st.text_area("", 
+                            value=st.session_state.get("purpose", ""), 
+                            key="purpose", 
+                            height=120)
+                
+                st.divider()
+                st.markdown("### 5. 수술 방법 및 내용")
+                
+                st.markdown("**1) 수술 과정 전반에 대한 설명**")
+                st.text_area("과정 설명", 
+                            value=st.session_state.get("method_1", ""), 
+                            key="method_1", 
+                            height=120, 
+                            label_visibility="collapsed")
+                
+                st.markdown("**2) 수술 추정 소요시간**")
+                st.text_area("예상 소요시간", 
+                            value=st.session_state.get("method_2", ""), 
+                            key="method_2", 
+                            height=120, 
+                            label_visibility="collapsed")
+                
+                st.markdown("**3) 수술 방법 변경 및 수술 추가 가능성**")
+                st.markdown(
+                    """
+                    > 수술/시술/검사과정에서 환자의 상태에 따라 부득이하게 수술/시술/검사방법이 변경되거나 수술/시술/검사범위가 추가될 수 있습니다. 
+                    > 이 경우, 환자 또는 대리인에게 추가로 설명하여야 하는 사항이 있는 경우에는 수술/시술/검사의 시행 전에 이에 대하여 설명하고 동의를 얻도록 합니다. 
+                    > 다만, 수술/시술/검사의 시행 도중에 환자의 상태에 따라 미리 설명하고 동의를 얻을 수 없을 정도로 긴급한 변경 또는 추가가 요구되는 경우에는 
+                    > 시행 후에 지체 없이 그 사유 및 결과를 환자 또는 대리인에게 설명하도록 합니다.
+                    """
+                )
+
+                
+                st.markdown("**4) 수혈 가능성**")
+                st.text_area("수혈 가능성 및 관련 정보",
+                            value=st.session_state.get("method_4", ""),
+                            key="method_4",
+                            height=120,
+                            label_visibility="collapsed")
+                
+                st.markdown("**5) 집도의 변경 가능성**")
+                st.markdown(
+                    """
+                    > 위에 기재된 참여 의료진이 있는 경우 수술/시술/검사과정에서 환자의 상태 또는 의료기관의 사정(응급환자 진료, 주치의의 질병·출장 등)에 따라 
+                    > 부득이하게 주치의(집도의)가 변경될 수 있습니다. 이 경우 시행 전에 환자 또는 대리인에게 구체적인 변경사유를 설명하고 동의를 얻을 예정입니다. 
+                    > 다만, 시행 도중에 미리 설명하고 동의를 얻을 수 없을 정도로 긴급한 변경이 요구되는 경우에는 시행 후에 
+                    > 지체 없이 구체적인 변경 사유 및 시행결과를 환자 또는 대리인에게 설명하도록 합니다.
+                    """
+                )
+
+                st.divider()
+                st.markdown("### 6. 발생 가능한 합병증/후유증/부작용")
+                st.text_area("",
+                            value=st.session_state.get("complications", ""),
+                            key="complications",
+                            height=120)
+                
+                st.divider()
+                st.markdown("### 7. 문제 발생시 조치사항")
+                st.text_area("",
+                            value=st.session_state.get("preop_care", ""),
+                            key="preop_care",
+                            height=120)
+                
+                st.divider()
+                st.markdown("### 8. 진단/수술 관련 사망 위험성")
+                st.text_area("",
+                            value=st.session_state.get("mortality_risk", ""),
+                            key="mortality_risk",
+                            height=120)
+                
+                st.divider()
+                
+                submitted = st.form_submit_button(
+                    "수술 내용 확정 및 동의서 출력 단계로",
+                    use_container_width=True,
+                    type="primary"
+                )
+                if submitted:
+                    st.session_state.step = 2
+                    st.rerun()
+        with tabs[1]:  # 출처 탭
+            #st.markdown("## 📚 각 항목별 출처")
+
+            with st.expander("2. 시행 가능한 다른 치료 방법"):
+                st.markdown("""
+                - [대한외과학회 대체 치료 지침](https://example.com)
+                - 보존적 치료 옵션에 대한 최신 연구 (Lee et al., 2022)
+                """)
+
+            with st.expander("3. 수술/시술/검사의 목적, 필요성 및 효과"):
+                st.markdown("""
+                - NEJM: 수술의 임상적 목적과 효과 분석 (2021)
+                - 건강보험심사평가원 치료효과 보고서
+                """)
+
+            with st.expander("4. 수술/시술/검사의 방법 및 내용"):
+                st.markdown("""
+                - [보건복지부 수술절차 설명 가이드](https://example.com)
+                - Surgical Techniques Handbook, 3rd ed.
+                """)
+
+            with st.expander("5. 수술/시술/검사 중 발생 가능한 사항 (변경/수혈/집도의 변경 등)"):
+                st.markdown("""
+                - 수술 중 동의서 가이드라인 (대한의사협회)
+                - 응급 수혈 및 집도의 교체 관련 법령 자료 (의료법 제24조)
+                """)
+
+            with st.expander("6. 발생 가능한 합병증/후유증/부작용 및 대처 계획"):
+                st.markdown("""
+                - 국내 수술 합병증 통계 보고서 2020
+                - 부작용 발생 시 대응 매뉴얼 (서울대병원 내부 문서)
+                """)
+
+            with st.expander("7. 수술/시술/검사 전후 환자 준수사항"):
+                st.markdown("""
+                - 환자 행동요령 안내서 (분당서울대병원)
+                - 수술 전 금식, 약물 중단 가이드 (American College of Surgeons)
+                """)
+
+            with st.expander("8. 기타 추가설명"):
+                st.markdown("""
+                - 의료진 판단에 따른 추가 안내사항 (개별 병원 수술안내서 참조)
+                - 환자 교육 자료집 부록
+                """)  
     st.markdown("""
     <style>
     div[data-testid="stButton"] {

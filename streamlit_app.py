@@ -36,6 +36,7 @@ if "step" not in st.session_state:
     st.session_state.step = -1  # -1 for main page
 
 # Header
+st.set_page_config(layout="wide")
 render_header()
 
 if st.session_state.show_possum:
@@ -47,10 +48,12 @@ else:
     if st.session_state.step == -1:
         if page_main():
             st.session_state.step = 0
+            st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
             st.rerun()
     else:
         val = stx.stepper_bar(steps=STEP_LABELS, lock_sequence=False)
         if val != st.session_state.step:
             st.session_state.step = val
+            st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
             st.rerun()
         PAGE_FUNCS[st.session_state.step]()
