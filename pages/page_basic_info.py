@@ -16,7 +16,6 @@ def page_basic_info():
                 "결장우반절제술", "하트만 수술", "탐색개복술", "서혜부 탈장 수술", "절개탈장 수술"
             ]
         )
-        st.markdown("### 수술 동의서")
 
         # 첫 줄에 등록번호 / 환자명, 둘째 줄에 나이/성별 / 시행예정일
         col1, col2 = st.columns(2)
@@ -92,7 +91,7 @@ def page_basic_info():
             cardiovascular = st.radio("심혈관질환", ["유", "무"], index=1, horizontal=True)
             coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], index=1, horizontal=True)
             kidney = st.radio("신장질환", ["유", "무"], index=1, horizontal=True)
-            etc = st.text_area("기타", height=100)
+            etc = st.text_area("기타", height=100, placeholder="기타 특이사항이 있다면 기재해 주세요. 자세할수록 레퍼런스 조회가 용이합니다.")
 
         submitted = big_green_button("수술 동의서 생성하기")
         if submitted:
