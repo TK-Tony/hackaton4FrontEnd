@@ -40,6 +40,10 @@ def page_surgery_info():
 
     st.set_page_config(layout="wide")
 
+    if st.query_params.get("open_chatbot") == "1":
+        st.session_state.open_chatbot = True
+        st.query_params.clear()
+
     # 여백 제거 및 container 최대 폭 확장
     st.markdown("""
         <style>
@@ -66,7 +70,7 @@ def page_surgery_info():
 
     with col2:
 
-        tabs = st.tabs(["📝 수술 정보", "📚 출처 보기"])
+        tabs = st.tabs(["수술 정보", "출처 보기"])
 
         with tabs[0]:  # 입력 폼 탭
             #st.markdown("## 생성된 수술 정보")
@@ -207,7 +211,33 @@ def page_surgery_info():
                 - 의료진 판단에 따른 추가 안내사항 (개별 병원 수술안내서 참조)
                 - 환자 교육 자료집 부록
                 """)
+    with col1:
+        # 고정된 챗봇 버튼 (HTML + JS)
+        st.markdown("""
+            <script>
+            function openChatbot() {
+                const url = new URL(window.location);
+                url.searchParams.set('open_chatbot', '1');
+                window.location.href = url;
+            }
+            </script>
 
+            <div style="position: fixed; bottom: 40px; left: 40px;">
+                <button onclick="openChatbot()" style="
+                    background-color: #176d36;
+                    color: white;
+                    padding: 12px 18px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                ">
+                    💬
+                </button>
+            </div>
+        """, unsafe_allow_html=True)
 
-        if st.button("💬 챗봇과 상담하기", key="open_chatbot", help="궁금한 점을 챗봇에게 물어보세요."):
+        # Python 측 감지
+        if st.session_state.get("open_chatbot"):
             chatbot_modal()
+            st.session_state.open_chatbot = False

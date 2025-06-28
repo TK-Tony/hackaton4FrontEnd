@@ -166,6 +166,7 @@ def page_basic_info():
                         json.dump(data, f, ensure_ascii=False, indent=2)
                     st.success("데이터가 patient_data.json 파일로 저장되었습니다.")
                     st.session_state.step = 1
+                    #st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
                     st.rerun()
                 elif possum:
                     # Perform your calculations or actions here

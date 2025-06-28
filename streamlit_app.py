@@ -38,12 +38,14 @@ if st.session_state.step == -1:
     # Show main page first
     if page_main():
         st.session_state.step = 0
+        st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
         st.rerun()
 else:
     # Stepper navigation bar (no 'default' argument!)
     val = stx.stepper_bar(steps=STEP_LABELS, lock_sequence=False)
     if val != st.session_state.step:
         st.session_state.step = val
+        st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
         st.rerun()
     # Show the current page
     PAGE_FUNCS[st.session_state.step]()

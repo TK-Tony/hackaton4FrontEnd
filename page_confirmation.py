@@ -242,4 +242,5 @@ def page_confirmation():
 
         if st.button("수술 동의서 PDF 출력하기"):
             st.session_state.step = 3
+            st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
             st.rerun()
