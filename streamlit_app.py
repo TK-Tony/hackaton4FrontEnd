@@ -2,12 +2,12 @@ import streamlit as st
 import extra_streamlit_components as stx
 
 from components.header import render_header
-from pages.page_main import page_main
-from pages.page_basic_info import page_basic_info
-from pages.page_surgery_info import page_surgery_info
-from pages.page_confirmation import page_confirmation
-from pages.page_pdf_progress import page_pdf_progress
-from pages.page_pdf_success import page_pdf_success
+from page_main import page_main
+from page_basic_info import page_basic_info
+from page_surgery_info import page_surgery_info
+from page_confirmation import page_confirmation
+from page_pdf_progress import page_pdf_progress
+from page_pdf_success import page_pdf_success
 
 STEP_LABELS = [
     "Basic Information",
@@ -16,10 +16,12 @@ STEP_LABELS = [
     "Change to PDF",
     "Success"
 ]
+
 PAGE_FUNCS = [
     page_basic_info,
     page_surgery_info,
     page_confirmation,
+    #lambda: page_confirmation(st.session_state.get("consent_data", {})),
     page_pdf_progress,
     page_pdf_success
 ]

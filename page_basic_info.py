@@ -74,6 +74,7 @@ def page_basic_info():
                 st.text_input("진료과목", key=f"department_{i}")
 
         st.markdown("**1. 환자 상태 및 특이사항**")
+<<<<<<< Updated upstream:pages/page_basic_info.py
 
         col1, col2 = st.columns(2)
         with col1:
@@ -94,6 +95,25 @@ def page_basic_info():
             kidney = st.radio("신장질환", ["유", "무"], index=1, horizontal=True)
             etc = st.text_area("기타", height=100)
 
+=======
+        past_history = st.radio("과거병력(질병/상해/수술)", ["유", "무"], horizontal=True)
+        diabetes = st.radio("당뇨병", ["유", "무"], horizontal=True)
+        smoking = st.radio("흡연유무", ["유", "무"], horizontal=True)
+        hypertension = st.radio("고혈압", ["유", "무"], horizontal=True)
+        allergy = st.radio("알레르기 등의 특이체질", ["유", "무"], horizontal=True)
+        hypotension = st.radio("저혈압", ["유", "무"], horizontal=True)
+        airway_abnormality = st.radio("기도이상", ["유", "무"], horizontal=True)
+        cardiovascular = st.radio("심혈관질환", ["유", "무"], horizontal=True)
+        respiratory = st.radio("호흡기질환", ["유", "무"], horizontal=True)
+        coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], horizontal=True)
+        medication = st.radio("복용약물", ["유", "무"], horizontal=True)
+        kidney = st.radio("신장질환", ["유", "무"], horizontal=True)
+        drug_abuse = st.radio("마약복용 혹은 약물사고", ["유", "무"], horizontal=True)
+        etc = st.text_input("기타")
+        
+       
+        
+>>>>>>> Stashed changes:page_basic_info.py
         submitted = big_green_button("수술 동의서 생성하기")
         if submitted:
             # 집도의 목록 수집
@@ -132,11 +152,14 @@ def page_basic_info():
                 "신장질환": kidney,
                 "마약복용 혹은 약물사고": drug_abuse,
                 "기타": etc,
+<<<<<<< Updated upstream:pages/page_basic_info.py
                 
+=======
+>>>>>>> Stashed changes:page_basic_info.py
             }
             # Save as JSON file for LLM prompt
             with open("patient_data.json", "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
             st.success("데이터가 patient_data.json 파일로 저장되었습니다.")
             st.session_state.step = 1
-            st.experimental_rerun()
+            st.rerun()
