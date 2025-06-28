@@ -1,0 +1,47 @@
+body {
+    background: #f0f9f4;
+}
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #338a3e 0%, #a5d6a7 100%);
+    padding: 18px 32px;
+    color: white;
+    font-size: 1.3em;
+}
+.logo { font-weight: bold; font-size: 1.6em; }
+.user-info { font-size: 1em; }
+.icon { width: 28px; margin-left: 10px; vertical-align: middle; }
+.main-title {
+    color: #1b5e20;
+    text-align: center;
+    margin-top: 28px;
+    font-size: 2em;
+    font-weight: bold;
+}
+.stepper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0 20px 0;
+}
+.step {
+    margin: 0 24px;
+    text-align: center;
+    font-size: 1em;
+    color: #1b5e20;
+}
+.step.active {
+    font-weight: bold;
+}
+.stButton>button {
+    background: #1b5e20;
+    color: #fff;
+    font-size: 1.3em;
+    border-radius: 16px;
+    padding: 18px 0;
+    margin-top: 24px;
+    width: 100%;
+    box-shadow: 0 6px 24px rgba(27,94,32,0.08);
+}
