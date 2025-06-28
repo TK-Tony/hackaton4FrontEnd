@@ -93,27 +93,8 @@ def page_basic_info():
             cardiovascular = st.radio("심혈관질환", ["유", "무"], index=1, horizontal=True)
             coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], index=1, horizontal=True)
             kidney = st.radio("신장질환", ["유", "무"], index=1, horizontal=True)
-            etc = st.text_area("기타", height=100)
+            etc = st.text_area("기타", height=100, placeholder="기타 특이사항이 있다면 기재해 주세요. 자세할수록 레퍼런스 조회가 용이합니다.\n단, 개인 식별 정보는 기재하지 말아주세요.(예: 환자 이름 등)")
 
-=======
-        past_history = st.radio("과거병력(질병/상해/수술)", ["유", "무"], horizontal=True)
-        diabetes = st.radio("당뇨병", ["유", "무"], horizontal=True)
-        smoking = st.radio("흡연유무", ["유", "무"], horizontal=True)
-        hypertension = st.radio("고혈압", ["유", "무"], horizontal=True)
-        allergy = st.radio("알레르기 등의 특이체질", ["유", "무"], horizontal=True)
-        hypotension = st.radio("저혈압", ["유", "무"], horizontal=True)
-        airway_abnormality = st.radio("기도이상", ["유", "무"], horizontal=True)
-        cardiovascular = st.radio("심혈관질환", ["유", "무"], horizontal=True)
-        respiratory = st.radio("호흡기질환", ["유", "무"], horizontal=True)
-        coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], horizontal=True)
-        medication = st.radio("복용약물", ["유", "무"], horizontal=True)
-        kidney = st.radio("신장질환", ["유", "무"], horizontal=True)
-        drug_abuse = st.radio("마약복용 혹은 약물사고", ["유", "무"], horizontal=True)
-        etc = st.text_input("기타")
-        
-       
-        
->>>>>>> Stashed changes:page_basic_info.py
         submitted = big_green_button("수술 동의서 생성하기")
         if submitted:
             # 집도의 목록 수집
