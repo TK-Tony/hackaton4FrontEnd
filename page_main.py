@@ -291,18 +291,11 @@ def page_main():
                 """, unsafe_allow_html=True
             )
 
-        st.markdown(
-            """
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#" class="button-green">SurgiForm 시작하기 >></a>
-            </div>
-            """, unsafe_allow_html=True
-        )
-        st.markdown('</div>', unsafe_allow_html=True)
+        _, center, _ = st.columns([2, 1, 2])
+        with center:
+            if st.button("SurgiForm 시작하기", type="primary"):
+                st.success("시작하기 버튼이 눌렸습니다!")
+                return True
+            return False
 
-    # Add a button
-    if st.button("시작하기"):
-        # You can set a session state or perform an action here
-        st.success("시작하기 버튼이 눌렸습니다!")
-        return True
-    return False
+

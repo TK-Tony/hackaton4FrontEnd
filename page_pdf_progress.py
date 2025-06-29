@@ -254,11 +254,10 @@ def collect_all_content():
     """
 
     full_html += "<h4>추가 정보/서명란 (필요시 담당의 입력)</h4>"
-    
-    # Collect the main confirmation canvas
-    confirmation_canvas_html = canvas_to_base64("confirmation_big_canvas")
-    if confirmation_canvas_html:
-        full_html += confirmation_canvas_html.replace('width="750"', 'width="800"')
+    for i in range(st.session_state.get("canvas_count_9", 0)):
+        canvas_html = canvas_to_base64(f"canvas_9_{i}")
+        if canvas_html:
+            full_html += canvas_html
 
     return full_html
 

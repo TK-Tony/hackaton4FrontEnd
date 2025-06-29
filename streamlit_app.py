@@ -1,5 +1,4 @@
 import streamlit as st
-import extra_streamlit_components as stx
 
 from components.header import render_header
 from page_main import page_main
@@ -8,6 +7,7 @@ from page_surgery_info import page_surgery_info
 from page_confirmation import page_confirmation
 from page_pdf_progress import page_pdf_progress
 from page_pdf_success import page_pdf_success
+import extra_streamlit_components as stx
 
 from page_basic_info import page_basic_info
 from possum_calculator import main as possum_main
