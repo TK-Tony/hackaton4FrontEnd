@@ -41,8 +41,6 @@ render_header()
 
 if st.session_state.show_possum:
     possum_main()  # Show the POSSUM calculator
-elif st.session_state.step == 3:  # PDF 생성 단계
-    page_pdf_progress()
 else:
     # Your existing stepper logic
     if st.session_state.step == -1:

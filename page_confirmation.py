@@ -65,6 +65,10 @@ def save_all_canvas_data():
         return False
 
 def page_confirmation():
+    st.markdown("""
+        <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>앞서 작성한 모든 정보입니다. 환자 숙지 후 서명을 부탁드립니다.</h2>
+    """, unsafe_allow_html=True)
+
     consent_data = load_patient_data()
     # 여백 제거 및 container 최대 폭 확장
     st.markdown("""

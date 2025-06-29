@@ -263,6 +263,29 @@ def collect_all_content():
     return full_html
 
 def page_pdf_progress():
+    st.set_page_config(layout="wide")
+
+
+    #여백 제거 및 container 최대 폭 확장
+    st.markdown("""
+        <style>
+        .block-container {
+            padding: 0rem;
+            max-width: 100% !important;
+        }
+        .form-wrapper {
+            max-width: 800px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 0rem;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>서명까지 완료된 수술 동의서의 PDF 출력본을 원하는 경우 출력하는 페이지입니다.</h2>
+    """, unsafe_allow_html=True)
+
     if st.button("수술 동의서 PDF 출력하기"):
         # Get the HTML content with proper Korean text
         full_content = collect_all_content()
