@@ -28,6 +28,7 @@ def page_basic_info():
         .block-container {
             padding: 0rem;
             max-width: 100% !important;
+            margin-bottom: 1rem;
         }
         .form-wrapper {
             max-width: 800px;
@@ -139,7 +140,9 @@ def page_basic_info():
                         st.metric("Morbidity Risk", f"{st.session_state.possum_results['morbidity']:.2%}")
             etc = st.text_area("기타", placeholder="환자의 상태나 기타 특이사항이 있다면 기재해 주세요. 자세할수록 레퍼런스 조회가 용이합니다.\n단, 환자명 등의 개인 식별 정보는 기재하지 말아주세요.")
 
-            submitted = st.form_submit_button("수술 동의서 생성하기")
+            col1, col2, col3 = st.columns([1.5, 1, 1])
+            with col2:
+                submitted = st.form_submit_button("수술 동의서 생성하기")
 
             # POSSUM button: Navigate to calculator (no validation required)
             if possum:

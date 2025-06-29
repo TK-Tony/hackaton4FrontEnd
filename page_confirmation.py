@@ -76,7 +76,7 @@ def page_confirmation():
         .block-container {
             padding: 0rem;
             max-width: 100% !important;
-            padding-bottom: 2rem;
+            padding-bottom: 1rem;
         }
         .form-wrapper {
             max-width: 800px;

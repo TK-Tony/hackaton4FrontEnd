@@ -113,80 +113,94 @@ def get_score(variable_name, variable_type):
     return 0
 
 def main():
-    st.title("POSSUM Calculator")
-    st.subheader("Physiological and Operative Severity Score for the enUmeration of Mortality and Morbidity")
-    
-    # Physiological Score Section
-    st.header("Physiological Score")
-    physiological_score = 0
-    
-    for i, (var_name, var_data) in enumerate(physiological_variables.items(), 1):
-        st.markdown(f"**{i}. {var_name}**")
-        selected = st.radio(
-            f"Select option for {var_name}:",
-            options=var_data["options"],
-            key=f'physio_{var_name}',
-            format_func=lambda x, scores=var_data["scores"], options=var_data["options"]: 
-                f"{x} ({scores[options.index(x)]})" if x in options else x
-        )
-        if selected:
-            physiological_score += get_score(var_name, "physiological")
-        st.write("")  # Add spacing
-    
-    st.write(f"**Total Physiological Score: {physiological_score}**")
-    st.write("")
-    
-    # Operative Score Section
-    st.header("Operative Score")
-    operative_score = 0
-    
-    for i, (var_name, var_data) in enumerate(operative_variables.items(), 1):
-        st.markdown(f"**{i}. {var_name}**")
-        selected = st.radio(
-            f"Select option for {var_name}:",
-            options=var_data["options"],
-            key=f'opera_{var_name}',
-            format_func=lambda x, scores=var_data["scores"], options=var_data["options"]: 
-                f"{x} ({scores[options.index(x)]})" if x in options else x
-        )
-        if selected:
-            operative_score += get_score(var_name, "operative")
-        st.write("")  # Add spacing
-    
-    st.write(f"**Total Operative Score: {operative_score}**")
-    st.write("")
-    
-    # Calculate Risk
-    if st.button("Calculate Risk", type="primary"):
-        if physiological_score > 0 and operative_score > 0:
-            # POSSUM equations
-            # Mortality: ln(R1/(1-R1)) = -9.065 + 0.1692 * physiological + 0.1550 * operative
-            # Morbidity: ln(R2/(1-R2)) = -5.91 + 0.16 * physiological + 0.19 * operative
-            
-            logit_mortality = -9.065 + 0.1692 * physiological_score + 0.1550 * operative_score
-            logit_morbidity = -5.91 + 0.16 * physiological_score + 0.19 * operative_score
-            
-            mortality_risk = 1 / (1 + math.exp(-logit_mortality))
-            morbidity_risk = 1 / (1 + math.exp(-logit_morbidity))
-            
-            st.session_state['possum_results'] = {
-                'mortality': mortality_risk,
-                'morbidity': morbidity_risk
-            }
-            
-            st.subheader("Predicted Risk")
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("Mortality Risk", f"{mortality_risk:.2%}")
-            with col2:
-                st.metric("Morbidity Risk", f"{morbidity_risk:.2%}")
-        else:
-            st.error("Please complete all physiological and operative assessments before calculating risk.")
-    
-    # Return to Basic Info
-    if st.button("← Return to Basic Info"):
-        st.session_state.show_possum = False
-        st.rerun()
+    #여백 제거 및 container 최대 폭 확장
+    st.markdown("""
+        <style>
+        .block-container {
+            padding: 0rem;
+            max-width: 100% !important;
+            margin-bottom: 1rem;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    _, col, _ = st.columns([1, 6, 1])
+
+    with col:
+        st.title("POSSUM Calculator")
+        st.subheader("Physiological and Operative Severity Score for the enUmeration of Mortality and Morbidity")
+        
+        # Physiological Score Section
+        st.header("Physiological Score")
+        physiological_score = 0
+        
+        for i, (var_name, var_data) in enumerate(physiological_variables.items(), 1):
+            st.markdown(f"**{i}. {var_name}**")
+            selected = st.radio(
+                f"Select option for {var_name}:",
+                options=var_data["options"],
+                key=f'physio_{var_name}',
+                format_func=lambda x, scores=var_data["scores"], options=var_data["options"]: 
+                    f"{x} ({scores[options.index(x)]})" if x in options else x
+            )
+            if selected:
+                physiological_score += get_score(var_name, "physiological")
+            st.write("")  # Add spacing
+        
+        st.write(f"**Total Physiological Score: {physiological_score}**")
+        st.write("")
+        
+        # Operative Score Section
+        st.header("Operative Score")
+        operative_score = 0
+        
+        for i, (var_name, var_data) in enumerate(operative_variables.items(), 1):
+            st.markdown(f"**{i}. {var_name}**")
+            selected = st.radio(
+                f"Select option for {var_name}:",
+                options=var_data["options"],
+                key=f'opera_{var_name}',
+                format_func=lambda x, scores=var_data["scores"], options=var_data["options"]: 
+                    f"{x} ({scores[options.index(x)]})" if x in options else x
+            )
+            if selected:
+                operative_score += get_score(var_name, "operative")
+            st.write("")  # Add spacing
+        
+        st.write(f"**Total Operative Score: {operative_score}**")
+        st.write("")
+        
+        # Calculate Risk
+        if st.button("Calculate Risk", type="primary"):
+            if physiological_score > 0 and operative_score > 0:
+                # POSSUM equations
+                # Mortality: ln(R1/(1-R1)) = -9.065 + 0.1692 * physiological + 0.1550 * operative
+                # Morbidity: ln(R2/(1-R2)) = -5.91 + 0.16 * physiological + 0.19 * operative
+                
+                logit_mortality = -9.065 + 0.1692 * physiological_score + 0.1550 * operative_score
+                logit_morbidity = -5.91 + 0.16 * physiological_score + 0.19 * operative_score
+                
+                mortality_risk = 1 / (1 + math.exp(-logit_mortality))
+                morbidity_risk = 1 / (1 + math.exp(-logit_morbidity))
+                
+                st.session_state['possum_results'] = {
+                    'mortality': mortality_risk,
+                    'morbidity': morbidity_risk
+                }
+                
+                st.subheader("Predicted Risk")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric("Mortality Risk", f"{mortality_risk:.2%}")
+                with col2:
+                    st.metric("Morbidity Risk", f"{morbidity_risk:.2%}")
+            else:
+                st.error("Please complete all physiological and operative assessments before calculating risk.")
+        
+        # Return to Basic Info
+        if st.button("← Return to Basic Info"):
+            st.session_state.show_possum = False
+            st.rerun()
 
 
 if __name__ == "__main__":
