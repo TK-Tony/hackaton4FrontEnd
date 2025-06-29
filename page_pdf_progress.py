@@ -386,12 +386,15 @@ def page_pdf_progress():
                 
                 # Provide download button
                 with open('surgery_consent.pdf', 'rb') as pdf_file:
-                    st.download_button(
+                    download_clicked = st.download_button(
                         label="PDF 다운로드",
                         data=pdf_file.read(),
                         file_name="수술동의서.pdf",
                         mime="application/pdf"
                     )
+                    if download_clicked:
+                        st.session_state.step = 4   # “Success” 스텝 인덱스
+                        st.rerun()
                     
             except Exception as e:
                 st.error(f"PDF 생성 중 오류가 발생했습니다: {str(e)}")

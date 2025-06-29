@@ -4,7 +4,7 @@ def page_main():
     # 페이지 설정
     st.set_page_config(layout="wide")
 
-    st.image("assets/images/main_p.png", use_container_width=True) # 문서 이미지
+    #st.image("assets/images/main_p.png", use_container_width=True) # 문서 이미지
 
     # CSS 스타일 (배경색, 폰트 크기 등 조절)
 
@@ -203,7 +203,7 @@ def page_main():
 
 
     # --- What is SurgiForm? 섹션 (연한 회색 배경) ---
-    st.image("assets/images/main_w.png", use_container_width=True) # 문서 이미지
+    #st.image("assets/images/main_w.png", use_container_width=True) # 문서 이미지
 
     st.container()
     with st.container():
@@ -225,7 +225,6 @@ def page_main():
                     <span class="material-symbols-outlined">desktop_windows</span>
                 </div>
             """, unsafe_allow_html=True)
-            #st.image("assets/images/step11.png", width=100)
 
         with col2:
             st.markdown("""
@@ -235,7 +234,6 @@ def page_main():
                     <span class="material-symbols-outlined">assignment_turned_in</span>
                 </div>
             """, unsafe_allow_html=True)
-            #st.image("assets/images/step2.png", width=100)
 
         with col3:
             st.markdown("""
@@ -245,7 +243,6 @@ def page_main():
                     <span class="material-symbols-outlined">description</span>
                 </div>
             """, unsafe_allow_html=True)
-            #st.image("assets/images/step3.png", width=100)
 
         st.markdown('</div>', unsafe_allow_html=True)
 
