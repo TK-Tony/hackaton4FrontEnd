@@ -487,12 +487,25 @@ def page_confirmation():
         """)
 
         st.markdown("**추가 정보/서명란 (필요시 담당의 입력)**")
-        confirmation_canvas = st_canvas(
-            fill_color="#fff", stroke_width=3, stroke_color="#222",
-            background_color="#f9f9f9", height=180, width=800,
-            drawing_mode="freedraw", key="confirmation_big_canvas"
-        )
-        
+        if st.button("Add Canvas", key="add_canvas_9"):
+            add_canvas(9)
+        for i in range(st.session_state.get("canvas_count_9", 0)):
+            col1, col2 = st.columns([1, 10])
+            with col1:
+                if st.button(f"🗑️", key=f"delete_canvas_9_{i}"):
+                    delete_canvas(9, i)
+                    st.rerun()
+            with col2:
+                canvas_result = st_canvas(
+                    fill_color="#fff", stroke_width=3, stroke_color="#222",
+                    background_color="#f9f9f9", height=200, width=750,
+                    drawing_mode="freedraw", key=f"canvas_9_{i}"
+                )
+                if canvas_result.json_data is not None:
+                    st.session_state[f"canvas_9_{i}_data"] = canvas_result.json_data
+                if canvas_result.image_data is not None:
+                    st.session_state[f"canvas_9_{i}_image"] = canvas_result.image_data
+        st.divider()        
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)
 
