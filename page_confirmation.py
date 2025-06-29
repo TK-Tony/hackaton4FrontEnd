@@ -88,6 +88,7 @@ def page_confirmation():
     """, unsafe_allow_html=True)
     # Create columns to center the content
     col1, col2, col3 = st.columns([1, 4, 1])
+
     with col2:  # Place all content in the middle column
         # Patient & Surgery Info Table
         st.markdown(f"""
@@ -495,12 +496,18 @@ def page_confirmation():
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)
 
-        if st.button("수술 동의서 PDF 출력하기"):
-            # Save all canvas data before proceeding
-            if save_all_canvas_data():
-                st.success("캔버스 데이터가 저장되었습니다.")
-                # PDF 생성 전 필요한 데이터 저장
-                st.session_state.step = 3
-                st.rerun()
-            else:
-                st.error("데이터 저장에 실패했습니다. 다시 시도해주세요.")
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col1 :
+            if st.button("🎙️ 녹음 시작", key="record_btn"):
+                pass
+
+        with col2 :
+            if st.button("수술 동의서 PDF 출력하기"):
+                # Save all canvas data before proceeding
+                if save_all_canvas_data():
+                    st.success("캔버스 데이터가 저장되었습니다.")
+                    # PDF 생성 전 필요한 데이터 저장
+                    st.session_state.step = 3
+                    st.rerun()
+                else:
+                    st.error("데이터 저장에 실패했습니다. 다시 시도해주세요.")

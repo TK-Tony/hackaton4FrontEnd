@@ -276,58 +276,59 @@ def page_surgery_info():
                     st.rerun()
         with tabs[1]:  # 출처 탭
             #st.markdown("## 📚 각 항목별 출처")
+            # 참조한 정보 리스트 : api 연결시 여기에 실시간으로 받아오면 될듯듯
+            references = [
+                {
+                    "url": "https://blog.naver.com/nahye24/221922…",
+                    "name": "네이버 블로그 | 나애리 세상",
+                    "desc": "다양한 자료를 참고하게 되는 데 전문성을 갖춘 참고문헌이 많고…"
+                },
+                {
+                    "url": "https://citation.sawoo.com/ref/guide/apa",
+                    "name": "citation.sawoo.com",
+                    "desc": "스타일 출처표기법 가이드 - Chicago, APA, MLA, Vancouver"
+                },
+                {
+                    "url": "https://allforyoung.com/users/%EC%9A…",
+                    "name": "allforyoung.com",
+                    "desc": "대학생 보고서 작성 시 인용할 자료가 한두 가지가 아닙니다. 잘못된 표기 방법은 레포트의 신뢰도를 떨어뜨려요."
+                },
+                # 필요한 만큼 더 추가...
+            ]
 
-            with st.expander("2. 시행 가능한 다른 치료 방법"):
-                st.markdown("""
-                - [대한외과학회 대체 치료 지침](https://example.com)
-                - 보존적 치료 옵션에 대한 최신 연구 (Lee et al., 2022)
-                """)
+            # 루프 돌며 번호·링크·이름·설명 출력
+            for i, ref in enumerate(references, start=1):
+                st.markdown(f"""
+                <div style="margin-bottom:1.5rem;">
+                    <strong>{i}. <a href="{ref['url']}" target="_blank">{ref['name']}</a></strong><br>
+                    <span style="color:#555;">{ref['desc']}</span>
+                </div>
+                """, unsafe_allow_html=True)
 
-            with st.expander("3. 수술/시술/검사의 목적, 필요성 및 효과"):
-                st.markdown("""
-                - NEJM: 수술의 임상적 목적과 효과 분석 (2021)
-                - 건강보험심사평가원 치료효과 보고서
-                """)
+    with col3:
+        st.markdown("""
+        <style>
+        div[data-testid="stButton"] {
+            position: fixed;
+            bottom: 20px;
+            left: 88.5%;
+            z-index: 9999;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        if st.button("AI 챗봇과 상담하기"):
+            chatbot_modal()
 
-            with st.expander("4. 수술/시술/검사의 방법 및 내용"):
-                st.markdown("""
-                - [보건복지부 수술절차 설명 가이드](https://example.com)
-                - Surgical Techniques Handbook, 3rd ed.
-                """)
-
-            with st.expander("5. 수술/시술/검사 중 발생 가능한 사항 (변경/수혈/집도의 변경 등)"):
-                st.markdown("""
-                - 수술 중 동의서 가이드라인 (대한의사협회)
-                - 응급 수혈 및 집도의 교체 관련 법령 자료 (의료법 제24조)
-                """)
-
-            with st.expander("6. 발생 가능한 합병증/후유증/부작용 및 대처 계획"):
-                st.markdown("""
-                - 국내 수술 합병증 통계 보고서 2020
-                - 부작용 발생 시 대응 매뉴얼 (서울대병원 내부 문서)
-                """)
-
-            with st.expander("7. 수술/시술/검사 전후 환자 준수사항"):
-                st.markdown("""
-                - 환자 행동요령 안내서 (분당서울대병원)
-                - 수술 전 금식, 약물 중단 가이드 (American College of Surgeons)
-                """)
-
-            with st.expander("8. 기타 추가설명"):
-                st.markdown("""
-                - 의료진 판단에 따른 추가 안내사항 (개별 병원 수술안내서 참조)
-                - 환자 교육 자료집 부록
-                """)  
-    st.markdown("""
-    <style>
-    div[data-testid="stButton"] {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        z-index: 9999;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    if st.button("AI 챗봇과 상담하기"):
-        chatbot_modal()
+    with col1:
+        st.markdown("""
+        <style>
+        div[data-testid="stButton"] {
+            position: fixed;
+            bottom: 20px;
+            right: 88.5%;
+            z-index: 9999;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        if st.button("이전 단계로"):
+            chatbot_modal()
