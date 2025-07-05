@@ -262,110 +262,109 @@ def collect_all_content():
     return full_html
 
 def page_pdf_progress():
-    if st.button("수술 동의서 PDF 출력하기"):
-        # Get the HTML content with proper Korean text
-        full_content = collect_all_content()
+
+    full_content = collect_all_content()
+    
+    # Add proper HTML structure with UTF-8 encoding for Korean text
+    html_with_encoding = f"""
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>수술 동의서</title>
+        <style>
+            body {{ 
+                font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif; 
+                line-height: 1.6;
+                margin: 20px;
+            }}
+            table {{ 
+                border-collapse: collapse; 
+                width: 100%; 
+                margin-bottom: 15px;
+            }}
+            th, td {{ 
+                border: 1px solid #aaa; 
+                padding: 7px; 
+                text-align: left; 
+            }}
+            th {{
+                background-color: #f5f5f5;
+                font-weight: bold;
+            }}
+            h3 {{
+                color: #333;
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }}
+            h4 {{
+                color: #555;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }}
+            blockquote {{
+                background-color: #f9f9f9;
+                border-left: 4px solid #ccc;
+                margin: 15px 0;
+                padding: 10px 15px;
+            }}
+            img {{
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 10px 0;
+            }}
+            ol {{
+                padding-left: 20px;
+            }}
+            li {{
+                margin-bottom: 5px;
+            }}
+        </style>
+    </head>
+    <body>
+        <h1 style="text-align: center; color: #333; margin-bottom: 30px;">수술 동의서</h1>
+        {full_content}
+    </body>
+    </html>
+    """
+    
+    # Configure pdfkit for Windows with proper encoding
+    path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    
+    # PDF generation options for Korean text
+    options = {
+        'page-size': 'A4',
+        'encoding': 'UTF-8',
+        'no-outline': None,
+        'margin-top': '0.75in',
+        'margin-right': '0.75in',
+        'margin-bottom': '0.75in',
+        'margin-left': '0.75in',
+        'enable-local-file-access': None,
+    }
+    
+    try:
+        # Generate PDF with proper Korean encoding
+        pdfkit.from_string(
+            html_with_encoding, 
+            'surgery_consent.pdf', 
+            configuration=config,
+            options=options
+        )
+        st.success("PDF가 성공적으로 생성되었습니다: surgery_consent.pdf")
         
-        # Add proper HTML structure with UTF-8 encoding for Korean text
-        html_with_encoding = f"""
-        <!DOCTYPE html>
-        <html lang="ko">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>수술 동의서</title>
-            <style>
-                body {{ 
-                    font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif; 
-                    line-height: 1.6;
-                    margin: 20px;
-                }}
-                table {{ 
-                    border-collapse: collapse; 
-                    width: 100%; 
-                    margin-bottom: 15px;
-                }}
-                th, td {{ 
-                    border: 1px solid #aaa; 
-                    padding: 7px; 
-                    text-align: left; 
-                }}
-                th {{
-                    background-color: #f5f5f5;
-                    font-weight: bold;
-                }}
-                h3 {{
-                    color: #333;
-                    margin-top: 25px;
-                    margin-bottom: 15px;
-                }}
-                h4 {{
-                    color: #555;
-                    margin-top: 20px;
-                    margin-bottom: 10px;
-                }}
-                blockquote {{
-                    background-color: #f9f9f9;
-                    border-left: 4px solid #ccc;
-                    margin: 15px 0;
-                    padding: 10px 15px;
-                }}
-                img {{
-                    max-width: 100%;
-                    height: auto;
-                    display: block;
-                    margin: 10px 0;
-                }}
-                ol {{
-                    padding-left: 20px;
-                }}
-                li {{
-                    margin-bottom: 5px;
-                }}
-            </style>
-        </head>
-        <body>
-            <h1 style="text-align: center; color: #333; margin-bottom: 30px;">수술 동의서</h1>
-            {full_content}
-        </body>
-        </html>
-        """
-        
-        # Configure pdfkit for Windows with proper encoding
-        path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-        config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-        
-        # PDF generation options for Korean text
-        options = {
-            'page-size': 'A4',
-            'encoding': 'UTF-8',
-            'no-outline': None,
-            'margin-top': '0.75in',
-            'margin-right': '0.75in',
-            'margin-bottom': '0.75in',
-            'margin-left': '0.75in',
-            'enable-local-file-access': None,
-        }
-        
-        try:
-            # Generate PDF with proper Korean encoding
-            pdfkit.from_string(
-                html_with_encoding, 
-                'surgery_consent.pdf', 
-                configuration=config,
-                options=options
+        # Provide download button
+        with open('surgery_consent.pdf', 'rb') as pdf_file:
+            st.download_button(
+                label="PDF 다운로드",
+                data=pdf_file.read(),
+                file_name="수술동의서.pdf",
+                mime="application/pdf"
             )
-            st.success("PDF가 성공적으로 생성되었습니다: surgery_consent.pdf")
             
-            # Provide download button
-            with open('surgery_consent.pdf', 'rb') as pdf_file:
-                st.download_button(
-                    label="PDF 다운로드",
-                    data=pdf_file.read(),
-                    file_name="수술동의서.pdf",
-                    mime="application/pdf"
-                )
-                
-        except Exception as e:
-            st.error(f"PDF 생성 중 오류가 발생했습니다: {str(e)}")
-            st.info("wkhtmltopdf가 설치되어 있는지 확인해주세요.")
+    except Exception as e:
+        st.error(f"PDF 생성 중 오류가 발생했습니다: {str(e)}")
+        st.info("wkhtmltopdf가 설치되어 있는지 확인해주세요.")

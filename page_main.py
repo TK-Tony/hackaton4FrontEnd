@@ -290,7 +290,7 @@ def page_main():
                 </div>
                 """, unsafe_allow_html=True
             )
-
+                    
         _, center, _ = st.columns([2, 1, 2])
         with center:
             if st.button("SurgiForm 시작하기", type="primary"):

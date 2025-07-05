@@ -6,7 +6,6 @@ from page_basic_info import page_basic_info
 from page_surgery_info import page_surgery_info
 from page_confirmation import page_confirmation
 from page_pdf_progress import page_pdf_progress
-from page_pdf_success import page_pdf_success
 import extra_streamlit_components as stx
 
 from page_basic_info import page_basic_info
@@ -19,7 +18,6 @@ STEP_LABELS = [
     "Surgery Information",
     "Confirmation",
     "Change to PDF",
-    "Success"
 ]
 
 PAGE_FUNCS = [
@@ -28,7 +26,6 @@ PAGE_FUNCS = [
     page_confirmation,
     #lambda: page_confirmation(st.session_state.get("consent_data", {})),
     page_pdf_progress,
-    page_pdf_success
 ]
 
 # Initialize session state
@@ -37,7 +34,8 @@ if "step" not in st.session_state:
 
 # Header
 st.set_page_config(layout="wide")
-render_header()
+if st.session_state.step !=3:
+    render_header()
 
 if st.session_state.show_possum:
     possum_main()  # Show the POSSUM calculator

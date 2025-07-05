@@ -2,6 +2,12 @@ import streamlit as st
 from groq import Groq
 import os
 from typing import List, Dict
+import requests
+
+from pydantic import BaseModel
+from pydantic import Field
+
+
 
 def initialize_session_state():
     """Initialize session state variables"""
@@ -141,7 +147,13 @@ def chatbot_modal():
             st.session_state.messages.append({"role": "assistant", "content": response})
             st.session_state.chatbot_input_key += 1
             # ✅ ONLY RERUN FOR FORM SUBMISSION TO CLEAR INPUT
-    
+
+
+
+# Use this before creating your Pydantic model:
+# cleaned_references = convert_references_to_strings(st.session_state.get("consent_references", {}))
+# consent_output = ConsentGenerateOut(references=cleaned_references, ...)
+
     
     
 
@@ -175,7 +187,7 @@ def page_surgery_info():
 
         tabs = st.tabs(["수술 정보", "출처 보기"])
 
-        with tabs[0]:  # 입력 폼 탭
+        with tabs[0]:  # 입력 폼 탭 
             with st.form("surgery_info_form"):
                 # Use dividers to create clear, formal sections
                 st.markdown("### 2. 예정된 수술/시술/검사를 하지 않을 경우의 예후")
@@ -274,50 +286,54 @@ def page_surgery_info():
                 if submitted:
                     st.session_state.step = 2
                     st.rerun()
-        with tabs[1]:  # 출처 탭
-            #st.markdown("## 📚 각 항목별 출처")
+        with tabs[1]:  # 입력 폼 탭 
+            with st.form("surgery_o_form"):
+                # Medical Reference Sources Section
+                st.markdown("### Medical Reference Sources")
+                all_sources = [
+                    "Lower urinary tract symptoms in males - https://www.uptodate.com/contents/lower-urinary-tract-symptoms-in-males",
+"Evaluation of epistaxis in children - https://www.uptodate.com/contents/evaluation-of-epistaxis-in-children",
+"Sigmoid volvulus - https://www.uptodate.com/contents/sigmoid-volvulus",
+"Large bowel obstruction - https://www.uptodate.com/contents/large-bowel-obstruction",
+"Overview of endometrial ablation - https://www.uptodate.com/contents/overview-of-endometrial-ablation",
+"Diversion colitis: Clinical manifestations and diagnosis - https://www.uptodate.com/contents/diversion-colitis-clinical-manifestations-and-diagnosis",
+"Surgical female pelvic anatomy: Uterus and related structures - https://www.uptodate.com/contents/surgical-female-pelvic-anatomy-uterus-and-related-structures",
+"Approach to minimal bright red blood per rectum in adults - https://www.uptodate.com/contents/approach-to-minimal-bright-red-blood-per-rectum-in-adults",
+"Overview of colon resection - https://www.uptodate.com/contents/overview-of-colon-resection",
+"Procedure-specific and late complications of open aortic surgery in adults - https://www.uptodate.com/contents/procedure-specific-and-late-complications-of-open-aortic-surgery-in-adults",
+"Endometriosis: Clinical manifestations and diagnosis of rectovaginal or bowel disease - https://www.uptodate.com/contents/endometriosis-clinical-manifestations-and-diagnosis-of-rectovaginal-or-bowel-disease",
+"Cecal volvulus - https://www.uptodate.com/contents/cecal-volvulus",
+"Practical aspects of red blood cell transfusion in adults: Storage, processing, modifications, and infusion - https://www.uptodate.com/contents/practical-aspects-of-red-blood-cell-transfusion-in-adults-storage-processing-modifications-and-infusion",
+"Treatments for male infertility - https://www.uptodate.com/contents/treatments-for-male-infertility",
+"Acute colonic diverticulitis: Surgical management - https://www.uptodate.com/contents/acute-colonic-diverticulitis-surgical-management",
+"Radiation proctitis: Clinical manifestations, diagnosis, and management - https://www.uptodate.com/contents/radiation-proctitis-clinical-manifestations-diagnosis-and-management",
+"Diversion colitis: Management - https://www.uptodate.com/contents/diversion-colitis-management",
+"Counseling in abortion care - https://www.uptodate.com/contents/counseling-in-abortion-care",
+"Acute simple cystitis in children older than two years and adolescents: Management - https://www.uptodate.com/contents/acute-simple-cystitis-in-children-older-than-two-years-and-adolescents-management",
+"Causes of scrotal pain in children and adolescents - https://www.uptodate.com/contents/causes-of-scrotal-pain-in-children-and-adolescents",
+"Overview of burn injury in older patients - https://www.uptodate.com/contents/overview-of-burn-injury-in-older-patients",
+"Induced fetal demise - https://www.uptodate.com/contents/induced-fetal-demise",
+"Transabdominal ultrasonography of the small and large intestine - https://www.uptodate.com/contents/transabdominal-ultrasonography-of-the-small-and-large-intestine",
+"Surgical resection of primary colon cancer - https://www.uptodate.com/contents/surgical-resection-of-primary-colon-cancer",
+"Clinical manifestations and diagnosis of cholangiocarcinoma - https://www.uptodate.com/contents/clinical-manifestations-and-diagnosis-of-cholangiocarcinoma"
 
-            with st.expander("2. 시행 가능한 다른 치료 방법"):
-                st.markdown("""
-                - [대한외과학회 대체 치료 지침](https://example.com)
-                - 보존적 치료 옵션에 대한 최신 연구 (Lee et al., 2022)
-                """)
+                ]
+                st.text_area("Sources", 
+                    value="\n".join(all_sources), 
+                    height=800, 
+                    key="medical_sources")
 
-            with st.expander("3. 수술/시술/검사의 목적, 필요성 및 효과"):
-                st.markdown("""
-                - NEJM: 수술의 임상적 목적과 효과 분석 (2021)
-                - 건강보험심사평가원 치료효과 보고서
-                """)
+                st.divider()
 
-            with st.expander("4. 수술/시술/검사의 방법 및 내용"):
-                st.markdown("""
-                - [보건복지부 수술절차 설명 가이드](https://example.com)
-                - Surgical Techniques Handbook, 3rd ed.
-                """)
+                st.form_submit_button(label="Next Page")
 
-            with st.expander("5. 수술/시술/검사 중 발생 가능한 사항 (변경/수혈/집도의 변경 등)"):
-                st.markdown("""
-                - 수술 중 동의서 가이드라인 (대한의사협회)
-                - 응급 수혈 및 집도의 교체 관련 법령 자료 (의료법 제24조)
-                """)
+    
 
-            with st.expander("6. 발생 가능한 합병증/후유증/부작용 및 대처 계획"):
-                st.markdown("""
-                - 국내 수술 합병증 통계 보고서 2020
-                - 부작용 발생 시 대응 매뉴얼 (서울대병원 내부 문서)
-                """)
+        
 
-            with st.expander("7. 수술/시술/검사 전후 환자 준수사항"):
-                st.markdown("""
-                - 환자 행동요령 안내서 (분당서울대병원)
-                - 수술 전 금식, 약물 중단 가이드 (American College of Surgeons)
-                """)
 
-            with st.expander("8. 기타 추가설명"):
-                st.markdown("""
-                - 의료진 판단에 따른 추가 안내사항 (개별 병원 수술안내서 참조)
-                - 환자 교육 자료집 부록
-                """)  
+
+
     st.markdown("""
     <style>
     div[data-testid="stButton"] {
