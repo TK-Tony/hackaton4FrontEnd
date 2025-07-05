@@ -290,38 +290,6 @@ def page_surgery_info():
             with st.form("surgery_o_form"):
                 # Medical Reference Sources Section
                 st.markdown("### Medical Reference Sources")
-                all_sources = [
-                    "Lower urinary tract symptoms in males - https://www.uptodate.com/contents/lower-urinary-tract-symptoms-in-males",
-"Evaluation of epistaxis in children - https://www.uptodate.com/contents/evaluation-of-epistaxis-in-children",
-"Sigmoid volvulus - https://www.uptodate.com/contents/sigmoid-volvulus",
-"Large bowel obstruction - https://www.uptodate.com/contents/large-bowel-obstruction",
-"Overview of endometrial ablation - https://www.uptodate.com/contents/overview-of-endometrial-ablation",
-"Diversion colitis: Clinical manifestations and diagnosis - https://www.uptodate.com/contents/diversion-colitis-clinical-manifestations-and-diagnosis",
-"Surgical female pelvic anatomy: Uterus and related structures - https://www.uptodate.com/contents/surgical-female-pelvic-anatomy-uterus-and-related-structures",
-"Approach to minimal bright red blood per rectum in adults - https://www.uptodate.com/contents/approach-to-minimal-bright-red-blood-per-rectum-in-adults",
-"Overview of colon resection - https://www.uptodate.com/contents/overview-of-colon-resection",
-"Procedure-specific and late complications of open aortic surgery in adults - https://www.uptodate.com/contents/procedure-specific-and-late-complications-of-open-aortic-surgery-in-adults",
-"Endometriosis: Clinical manifestations and diagnosis of rectovaginal or bowel disease - https://www.uptodate.com/contents/endometriosis-clinical-manifestations-and-diagnosis-of-rectovaginal-or-bowel-disease",
-"Cecal volvulus - https://www.uptodate.com/contents/cecal-volvulus",
-"Practical aspects of red blood cell transfusion in adults: Storage, processing, modifications, and infusion - https://www.uptodate.com/contents/practical-aspects-of-red-blood-cell-transfusion-in-adults-storage-processing-modifications-and-infusion",
-"Treatments for male infertility - https://www.uptodate.com/contents/treatments-for-male-infertility",
-"Acute colonic diverticulitis: Surgical management - https://www.uptodate.com/contents/acute-colonic-diverticulitis-surgical-management",
-"Radiation proctitis: Clinical manifestations, diagnosis, and management - https://www.uptodate.com/contents/radiation-proctitis-clinical-manifestations-diagnosis-and-management",
-"Diversion colitis: Management - https://www.uptodate.com/contents/diversion-colitis-management",
-"Counseling in abortion care - https://www.uptodate.com/contents/counseling-in-abortion-care",
-"Acute simple cystitis in children older than two years and adolescents: Management - https://www.uptodate.com/contents/acute-simple-cystitis-in-children-older-than-two-years-and-adolescents-management",
-"Causes of scrotal pain in children and adolescents - https://www.uptodate.com/contents/causes-of-scrotal-pain-in-children-and-adolescents",
-"Overview of burn injury in older patients - https://www.uptodate.com/contents/overview-of-burn-injury-in-older-patients",
-"Induced fetal demise - https://www.uptodate.com/contents/induced-fetal-demise",
-"Transabdominal ultrasonography of the small and large intestine - https://www.uptodate.com/contents/transabdominal-ultrasonography-of-the-small-and-large-intestine",
-"Surgical resection of primary colon cancer - https://www.uptodate.com/contents/surgical-resection-of-primary-colon-cancer",
-"Clinical manifestations and diagnosis of cholangiocarcinoma - https://www.uptodate.com/contents/clinical-manifestations-and-diagnosis-of-cholangiocarcinoma"
-
-                ]
-                st.text_area("Sources", 
-                    value="\n".join(all_sources), 
-                    height=800, 
-                    key="medical_sources")
 
                 st.divider()
 
