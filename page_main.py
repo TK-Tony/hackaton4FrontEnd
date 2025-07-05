@@ -6,8 +6,6 @@ def page_main():
 
     st.image("assets/images/main_p.png", use_container_width=True) # 문서 이미지
 
-    # CSS 스타일 (배경색, 폰트 크기 등 조절)
-
     st.markdown("""
         <style>
         body {
