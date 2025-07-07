@@ -289,7 +289,7 @@ def page_surgery_info():
         with tabs[1]:  # 입력 폼 탭 
             with st.form("surgery_o_form"):
                 # Medical Reference Sources Section
-                st.markdown("### Medical Reference Sources")
+                st.markdown("### 📚 각 항목별 출처")
 
                 st.divider()
 
@@ -313,5 +313,5 @@ def page_surgery_info():
     </style>
     """, unsafe_allow_html=True)
 
-    if st.button("AI 챗봇과 상담하기"):
+    if st.button("AI 챗봇 도움받기"):
         chatbot_modal()

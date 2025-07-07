@@ -396,7 +396,7 @@ def page_basic_info():
             col3, col4 = st.columns(2)
             with col3:
                 age = st.text_input("나이")
-                gender = st.text_input("성별")
+                gender = st.text_input("성별 (M/F)")
             with col4:
                 scheduled_date = st.date_input("시행예정일")
 
@@ -446,24 +446,24 @@ def page_basic_info():
             st.markdown("### 1. 환자 상태 및 특이사항")
             col1, col2 = st.columns(2)
             with col1:
-                past_history = st.radio("과거병력(질병/상해/수술)", ["true", "false"], index=1, horizontal=True)
-                smoking = st.radio("흡연유무", ["true", "false"], index=1, horizontal=True)
-                allergy = st.radio("알레르기 등의 특이체질", ["true", "false"], index=1, horizontal=True)
-                airway_abnormality = st.radio("기도이상", ["true", "false"], index=1, horizontal=True)
-                respiratory = st.radio("호흡기질환", ["true", "false"], index=1, horizontal=True)
-                medication = st.radio("복용약물", ["true", "false"], index=1, horizontal=True)
-                drug_abuse = st.radio("마약복용 혹은 약물사고", ["true", "false"], index=1, horizontal=True)
+                past_history = st.radio("과거병력(질병/상해/수술)", ["유", "무"], index=1, horizontal=True)
+                smoking = st.radio("흡연유무", ["유", "무"], index=1, horizontal=True)
+                allergy = st.radio("알레르기 등의 특이체질", ["유", "무"], index=1, horizontal=True)
+                airway_abnormality = st.radio("기도이상", ["유", "무"], index=1, horizontal=True)
+                respiratory = st.radio("호흡기질환", ["유", "무"], index=1, horizontal=True)
+                medication = st.radio("복용약물", ["유", "무"], index=1, horizontal=True)
+                drug_abuse = st.radio("마약복용 혹은 약물사고", ["유", "무"], index=1, horizontal=True)
 
             with col2:
-                diabetes = st.radio("당뇨병", ["true", "false"], index=1, horizontal=True)
-                hypertension = st.radio("고혈압", ["true", "false"], index=1, horizontal=True)
-                hypotension = st.radio("저혈압", ["true", "false"], index=1, horizontal=True)
-                cardiovascular = st.radio("심혈관질환", ["true", "false"], index=1, horizontal=True)
-                coagulation = st.radio("혈액응고 관련 질환", ["true", "false"], index=1, horizontal=True)
-                kidney = st.radio("신장질환", ["true", "false"], index=1, horizontal=True)
+                diabetes = st.radio("당뇨병", ["유", "무"], index=1, horizontal=True)
+                hypertension = st.radio("고혈압", ["유", "무"], index=1, horizontal=True)
+                hypotension = st.radio("저혈압", ["유", "무"], index=1, horizontal=True)
+                cardiovascular = st.radio("심혈관질환", ["유", "무"], index=1, horizontal=True)
+                coagulation = st.radio("혈액응고 관련 질환", ["유", "무"], index=1, horizontal=True)
+                kidney = st.radio("신장질환", ["유", "무"], index=1, horizontal=True)
                 
                 # POSSUM 점수 계산 버튼 및 결과 표시
-                possum = st.form_submit_button("POSSUM 점수 계산", help="수술의 위험도를 평가하기 위한 POSSUM 점수를 계산합니다.")
+                possum = st.form_submit_button("POSSUM 점수 계산 (먼저 계산 후 위의 정보를 입력하세요)", help="수술의 위험도를 평가하기 위한 POSSUM 점수를 계산합니다.")
                 if st.session_state.get("possum_results"):
                     st.markdown("**POSSUM 결과**")
                     colA, colB = st.columns(2)
@@ -474,7 +474,9 @@ def page_basic_info():
             
             etc = st.text_area("기타", placeholder="환자의 상태나 기타 특이사항이 있다면 기재해 주세요. 자세할수록 레퍼런스 조회가 용이합니다.\n단, 환자명 등의 개인 식별 정보는 기재하지 말아주세요.")
 
-            submitted = st.form_submit_button("수술 동의서 생성하기")
+            col1, col2, col3 = st.columns([1.5, 1, 1])
+            with col2:
+                submitted = st.form_submit_button("수술 동의서 생성하기")
 
             # POSSUM 버튼 처리
             if possum:

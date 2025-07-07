@@ -120,6 +120,10 @@ def get_latest_llm_output():
     return ""
 
 def page_confirmation():
+    st.markdown("""
+        <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>앞서 작성한 모든 정보입니다. 환자 숙지 후 서명을 부탁드립니다.</h2>
+    """, unsafe_allow_html=True)
+
     consent_data = load_patient_data()
     form_data = get_form_data()
     st.markdown("""
@@ -323,7 +327,7 @@ def page_confirmation():
             with col1:
                 if st.button(f"🗑️", key=f"delete_canvas_9_{i}"):
                     delete_canvas(9, i)
-                    st.experimental_rerun()
+                    st.rerun()
             with col2:
                 canvas_result = st_canvas(
                     fill_color="#fff", stroke_width=3, stroke_color="#222",
@@ -335,11 +339,18 @@ def page_confirmation():
                 if canvas_result.image_data is not None:
                     st.session_state[f"canvas_9_{i}_image"] = canvas_result.image_data
         st.divider()
-        if st.button("수술 동의서 PDF 출력하기", key="special"):
-            if save_all_canvas_data():
-                from page_pdf_progress import page_pdf_progress
-                page_pdf_progress()
-                st.session_state.step = 3
-                st.experimental_rerun()
-            else:
-                st.error("데이터 저장에 실패했습니다. 다시 시도해주세요.")
+
+        col1, col2, col3 = st.columns([1.5, 2, 1])
+        with col1 :
+            if st.button("🎙️ 녹음 시작", key="record_btn"):
+                pass
+
+        with col2:
+            if st.button("수술 동의서 PDF 출력하기", key="special"):
+                if save_all_canvas_data():
+                    # from page_pdf_progress import page_pdf_progress
+                    # page_pdf_progress()
+                    st.session_state.step = 3
+                    st.rerun()
+                else:
+                    st.error("데이터 저장에 실패했습니다. 다시 시도해주세요.")

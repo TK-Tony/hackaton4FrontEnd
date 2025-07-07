@@ -1,0 +1,52 @@
+{
+  "patient_info": {
+    "등록번호": "6767",
+    "수술명": "하트만 수술",
+    "환자명": "김민준",
+    "시행예정일": "2025-06-29",
+    "나이": "19",
+    "성별": "M",
+    "진단명": "Sigmoid colon perforation",
+    "수술부위표시": "R",
+    "수술부위": "좌측",
+    "의료진": [
+      {
+        "집도의": "서원",
+        "전문의여부": "전문의",
+        "진료과목": "외과"
+      }
+    ],
+    "과거병력": "false",
+    "당뇨병": "false",
+    "흡연유무": "false",
+    "고혈압": "false",
+    "알레르기": "false",
+    "저혈압": "false",
+    "기도이상": "false",
+    "심혈관질환": "true",
+    "호흡기질환": "false",
+    "혈액응고 관련 질환": "false",
+    "복용약물": "false",
+    "신장질환": "false",
+    "마약복용 혹은 약물사고": "false",
+    "기타": "없음"
+  },
+  "form_data": {},
+  "session_consent_data": {
+    "no_surgery_prognosis": "",
+    "alternative_methods": "",
+    "purpose": "",
+    "method_1": "",
+    "method_2": "",
+    "method_3": "",
+    "method_4": "",
+    "method_5": "",
+    "complications": "",
+    "preop_care": "",
+    "mortality_risk": ""
+  },
+  "canvas_counts": {},
+  "canvas_drawings": {},
+  "canvas_images": {},
+  "timestamp": "2025-07-07T11:41:13.427787"
+}

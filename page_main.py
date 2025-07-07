@@ -289,7 +289,7 @@ def page_main():
                 """, unsafe_allow_html=True
             )
                     
-        _, center, _ = st.columns([2, 1, 2])
+        _, center, _ = st.columns([2.5, 1, 2])
         with center:
             if st.button("SurgiForm 시작하기", type="primary"):
                 st.success("시작하기 버튼이 눌렸습니다!")
