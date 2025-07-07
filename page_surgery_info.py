@@ -179,7 +179,7 @@ def page_surgery_info():
     """, unsafe_allow_html=True)
 
     st.markdown(
-        "<h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>Reference Textbook을 기반으로 작성된 수술 관련 정보입니다.<br>확인 후 수정사항이 있으면 반영한 후 확정해주세요.</h2>",
+        "<h2 style='text-align:center; color:#176d36; padding-top:0px; margin: 0 0 20px 0'>Reference Textbook을 기반으로 작성된 수술 관련 정보입니다.<br>확인 후 수정사항이 있으면 반영한 후 확정해주세요.</h2>",
         unsafe_allow_html=True
     )
     col1, col2, col3 = st.columns([1, 6, 1])

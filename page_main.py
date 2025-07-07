@@ -198,14 +198,15 @@ def page_main():
             """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
-
+        
+        st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 
     # --- What is SurgiForm? 섹션 (연한 회색 배경) ---
     st.image("assets/images/main_w.png", use_container_width=True) # 문서 이미지
 
     st.container()
     with st.container():
-        st.markdown('<div class="section-background-white" style="padding:60px 0;">', unsafe_allow_html=True)
+        st.markdown('<div class="section-background-white" style="padding:30px 0;">', unsafe_allow_html=True)
         st.markdown("""
             <h2 style="text-align: center; color: #1a6d3b; 
                     font-size: 2em; font-weight: bold; margin-bottom: 50px;">
@@ -250,7 +251,7 @@ def page_main():
     # --- 병원 리뷰 섹션 (연한 회색 배경) ---
     st.container()
     with st.container():
-        st.markdown('<div class="section-background-white" style="padding-top: 60px; padding-bottom: 60px;">', unsafe_allow_html=True)
+        st.markdown('<div class="section-background-white" style="padding-top: 40px; padding-bottom: 60px;">', unsafe_allow_html=True)
         st.markdown(
             """
             <h2 style="text-align: center; color: #1a6d3b; font-size: 2em; font-weight: bold; margin-bottom: 50px;">
@@ -291,9 +292,9 @@ def page_main():
                     
         _, center, _ = st.columns([2.5, 1, 2])
         with center:
+            st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+
             if st.button("SurgiForm 시작하기", type="primary"):
                 st.success("시작하기 버튼이 눌렸습니다!")
                 return True
             return False
-
-

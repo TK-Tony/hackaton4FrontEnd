@@ -121,7 +121,7 @@ def get_latest_llm_output():
 
 def page_confirmation():
     st.markdown("""
-        <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>앞서 작성한 모든 정보입니다. 환자 숙지 후 서명을 부탁드립니다.</h2>
+        <h2 style='text-align:center; color:#176d36; padding-top:0px; margin: 0 0 20px 0'>앞서 작성한 모든 정보입니다. 환자 숙지 후 서명을 부탁드립니다.</h2>
     """, unsafe_allow_html=True)
 
     consent_data = load_patient_data()
@@ -348,8 +348,8 @@ def page_confirmation():
         with col2:
             if st.button("수술 동의서 PDF 출력하기", key="special"):
                 if save_all_canvas_data():
-                    # from page_pdf_progress import page_pdf_progress
-                    # page_pdf_progress()
+                    #from page_pdf_progress import page_pdf_progress
+                    #page_pdf_progress()
                     st.session_state.step = 3
                     st.rerun()
                 else:

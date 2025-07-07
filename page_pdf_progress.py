@@ -263,7 +263,7 @@ def collect_all_content():
 
 def page_pdf_progress():
 
-    st.set_page_config(layout="wide")
+    #st.set_page_config(layout="wide")
 
     #여백 제거 및 container 최대 폭 확장
     st.markdown("""
@@ -285,7 +285,7 @@ def page_pdf_progress():
     with col2:
 
         st.markdown("""
-            <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>PDF 생성이 완료되었습니다.<br>항상 환자를 위한 헌신에 감사드립니다.</h2>
+            <h2 style='text-align:center; color:#176d36; padding-top:0px; margin: 0 0 20px 0'>PDF 생성이 완료되었습니다.<br>항상 환자를 위한 헌신에 감사드립니다.</h2>
         """, unsafe_allow_html=True)
 
 

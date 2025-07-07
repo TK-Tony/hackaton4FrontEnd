@@ -48,6 +48,7 @@ else:
             st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
             st.rerun()
     else:
+        st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
         val = stx.stepper_bar(steps=STEP_LABELS, lock_sequence=False)
         if val != st.session_state.step:
             st.session_state.step = val

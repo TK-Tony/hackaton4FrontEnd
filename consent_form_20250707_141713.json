@@ -45,8 +45,10 @@
     "preop_care": "",
     "mortality_risk": ""
   },
-  "canvas_counts": {},
+  "canvas_counts": {
+    "canvas_count_9": 1
+  },
   "canvas_drawings": {},
   "canvas_images": {},
-  "timestamp": "2025-07-07T11:15:23.414748"
+  "timestamp": "2025-07-07T14:17:13.262665"
 }

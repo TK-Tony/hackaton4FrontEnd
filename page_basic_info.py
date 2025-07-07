@@ -370,7 +370,7 @@ def page_basic_info():
     """, unsafe_allow_html=True)
 
     st.markdown("""
-        <h2 style='text-align:center; color:#176d36; margin: 0 0 20px 0'>Reference Textbook 조회를 위한 기본 정보를 입력해주세요.</h2>
+        <h2 style='text-align:center; color:#176d36; padding-top:0px; margin: 0 0 20px 0'>Reference Textbook 조회를 위한 기본 정보를 입력해주세요.</h2>
     """, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1, 6, 1]) 
@@ -476,7 +476,9 @@ def page_basic_info():
 
             col1, col2, col3 = st.columns([1.5, 1, 1])
             with col2:
+                st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
                 submitted = st.form_submit_button("수술 동의서 생성하기")
+                st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
 
             # POSSUM 버튼 처리
             if possum:
@@ -552,6 +554,9 @@ def page_basic_info():
                                 
                 except Exception as e:
                     st.error(f"처리 중 오류가 발생했습니다: {str(e)}")
+        
+        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+
 
     # POSSUM 계산기 네비게이션 처리
     if possum:  
