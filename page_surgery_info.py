@@ -146,7 +146,6 @@ def chatbot_modal():
             # Add final response to session state
             st.session_state.messages.append({"role": "assistant", "content": response})
             st.session_state.chatbot_input_key += 1
-            # ✅ ONLY RERUN FOR FORM SUBMISSION TO CLEAR INPUT
 
 
 

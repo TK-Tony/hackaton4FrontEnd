@@ -8,7 +8,6 @@ from page_confirmation import page_confirmation
 from page_pdf_progress import page_pdf_progress
 import extra_streamlit_components as stx
 
-from page_basic_info import page_basic_info
 from possum_calculator import main as possum_main
 
 if "show_possum" not in st.session_state:
@@ -24,7 +23,6 @@ PAGE_FUNCS = [
     page_basic_info,
     page_surgery_info,
     page_confirmation,
-    #lambda: page_confirmation(st.session_state.get("consent_data", {})),
     page_pdf_progress,
 ]
 
@@ -38,8 +36,8 @@ render_header()
 
 if st.session_state.show_possum:
     possum_main()  # Show the POSSUM calculator
-# elif st.session_state.step == 3:  # PDF 생성 단계
-#     page_pdf_progress()
+elif st.session_state.step == 3:  # PDF 생성 단계
+    page_pdf_progress()
 else:
     # Your existing stepper logic
     if st.session_state.step == -1:

@@ -200,6 +200,7 @@ def main():
         # Return to Basic Info
         if st.button("← Return to Basic Info"):
             st.session_state.show_possum = False
+            st.session_state.navigate_to_possum = False
             st.rerun()
 
 
