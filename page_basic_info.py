@@ -390,7 +390,9 @@ def page_basic_info() -> None:
                         f"{st.session_state.possum_results['morbidity']:.2%}",
                     )
 
-        etc = st.text_area("기타")
+        etc = st.text_area("기타", placeholder="환자의 상태나 기타 특이사항이 있다면 기재해 주세요. 자세할수록 레퍼런스 조회가 용이합니다. 단, 환자명 등의 개인 식별 정보는 기재하지 말아주세요." \
+        "\n\n그리고 시연시, Possum Score 계산을 먼저 진행한 후에 정보를 입력해주시고, 각 단계마다 버튼 클릭 후 충분한 시간이 지나고" \
+        "\n상단의 Stepper로 페이지간 Naviagtion을 진행하시길 바랍니다. 아직 프로토타입의 불완전한 부분에 사과 말씀드립니다.")
 
         col1, col2, col3 = st.columns([1.5, 1, 1])
         with col2:
