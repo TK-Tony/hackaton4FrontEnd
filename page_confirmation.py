@@ -118,11 +118,11 @@ def save_all_canvas_data() -> bool:
     for k, v in st.session_state.items():
         if k.startswith("canvas_count_"):
             canvas_data['canvas_counts'][k] = v
-        elif k.startswith("canvas_") and not k.startswith("canvas_count_"):
-            if hasattr(v, "json_data") and v.json_data:
-                canvas_data['canvas_drawings'][k] = v.json_data
-            if hasattr(v, "image_data") and v.image_data is not None:
-                canvas_data['canvas_images'][k] = v.image_data.tolist()
+        elif k.endswith("_data"):
+            canvas_data['canvas_drawings'][k] = v
+        elif k.endswith("_image"):
+            if v is not None:
+                canvas_data['canvas_images'][k] = v.tolist()
 
     safe_data = _to_serializable(canvas_data)
 
