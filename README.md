@@ -55,7 +55,7 @@ Reference 기반의 수술 정보를 생성하기 위해, 수술과 환자에 �
 <img width="1000" alt="image" src="https://github.com/user-attachments/assets/c9502650-112a-45cb-bea3-81c4fdadfdce" />
 
 또한, 수술의 위험도를 엿볼 수 있는 **POSSUM SCORE 계산기 알고리즘**을 만들어 진단에 도움이 될 수 있도록 하였습니다.
-<img width="1000" alt="image" src="https://github.com/user-attachments/assets/c7cb09f7-2c9f-4b47-af2f-8bbffae85780" />
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/c4a3a27d-7b82-4281-a2f8-0a4855aab647" />
 
 
 ---
@@ -66,7 +66,9 @@ Reference 기반의 수술 정보를 생성하기 위해, 수술과 환자에 �
 2. 조회된 정보를 좀 더 쉬운 말로 풀어 설명해 주는 LLM  
 
 그 두 LLM을 거친 정보가 수술 정보 입력 페이지에 출처와 함께 제공됩니다.  
-<img width="1000" alt="image" src="https://github.com/user-attachments/assets/1da58fab-a34b-41c0-be1a-af9cd93c9828" />
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/2410f27a-4599-444f-9274-d653563a816b" />
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/5f59ba36-bdca-44e8-a423-2cf138d626dc" />
+
 
 의사 선생님들께서는 출처와 함께 생성된 정보를 보고 수정할 수 있으며, 추가적인 정보가 필요할 경우 **챗봇**의 도움을 받을 수도 있습니다.
 <img width="1000" alt="image" src="https://github.com/user-attachments/assets/72d52414-8673-4d9c-9c81-6aade9ca6725" />
