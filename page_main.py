@@ -294,7 +294,11 @@ def page_main():
         with center:
             st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 
+            if "start_clicked" not in st.session_state:
+                st.session_state.start_clicked = False
+
             if st.button("SurgiForm 시작하기", type="primary"):
+                st.session_state.start_clicked = True
                 st.success("시작하기 버튼이 눌렸습니다!")
-                return True
-            return False
+
+            return st.session_state.start_clicked

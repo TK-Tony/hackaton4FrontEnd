@@ -4,4 +4,7 @@ streamlit-drawable-canvas
 extra_streamlit_components
 groq
 pdfkit
-pydantic
+pydantic>=2.0
+Pillow
+numpy
+requests

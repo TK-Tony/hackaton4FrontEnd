@@ -12,6 +12,10 @@ from possum_calculator import main as possum_main
 
 if "show_possum" not in st.session_state:
     st.session_state.show_possum = False
+# Initialize session state
+if "step" not in st.session_state:
+    st.session_state.step = -1  # -1 for main page
+
 STEP_LABELS = [
     "Basic Information",
     "Surgery Information",
@@ -26,9 +30,6 @@ PAGE_FUNCS = [
     page_pdf_progress,
 ]
 
-# Initialize session state
-if "step" not in st.session_state:
-    st.session_state.step = -1  # -1 for main page
 
 # Header
 st.set_page_config(layout="wide")
@@ -41,10 +42,10 @@ elif st.session_state.step == 3:  # PDF 생성 단계
 else:
     # Your existing stepper logic
     if st.session_state.step == -1:
-        if page_main():
+        if page_main():  
             st.session_state.step = 0
-            st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
             st.rerun()
+        st.stop()
     else:
         st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
         val = stx.stepper_bar(steps=STEP_LABELS, lock_sequence=False)

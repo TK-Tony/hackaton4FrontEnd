@@ -8,16 +8,20 @@ from pydantic import BaseModel
 from pydantic import Field
 
 
-
-def initialize_session_state():
-    """Initialize session state variables"""
+# ──────────────────────────────
+# 0. Chat-bot & Session helpers
+# ──────────────────────────────
+def initialize_session_state() -> None:
+    """채팅봇·참고문헌·입력값 기본 세팅"""
     if "messages" not in st.session_state:
         st.session_state.messages = [
-            {"role": "assistant", "content": "안녕하세요 장재율 교수님, 몇 번 항목 수정을 도와드릴까요?"}
+            {"role": "assistant",
+             "content": "안녕하세요 장재율 교수님, 몇 번 항목 수정을 도와드릴까요?"}
         ]
-    if "chatbot_input_key" not in st.session_state:
-        st.session_state.chatbot_input_key = 0
-
+    st.session_state.setdefault("chatbot_input_key", 0)
+    st.session_state.setdefault("consent_references", {})   # API에서 받은 refs
+    
+    
 # Initialize Groq client
 @st.cache_resource
 def get_groq_client():
@@ -97,6 +101,24 @@ def get_streaming_response(messages: List[Dict[str, str]], response_placeholder)
         else:
             return f"❌ API 오류가 발생했습니다: {error_message}"
 
+
+# ──────────────────────────────
+# 1. Reference flattener
+# ──────────────────────────────
+def flatten_refs(refs: Dict) -> Dict[str, List[str]]:
+    """중첩 reference 구조 → {섹션: ['제목 – URL', ...]} 로 평탄화"""
+    flat = {}
+    def _walk(node, prefix=""):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                new_p = f"{prefix}{k}" if not prefix else f"{prefix} ▸ {k}"
+                _walk(v, new_p)
+        elif isinstance(node, list):
+            flat[prefix] = [f"{r.get('title','無題')} – {r.get('url','')}" for r in node]
+    _walk(refs)
+    return flat
+
+
 @st.dialog("챗봇", width="large")
 def chatbot_modal():
     # Initialize session state at the beginning of the modal
@@ -104,7 +126,6 @@ def chatbot_modal():
     
     st.markdown("#### AI 수술 동의서 작성 도우미")
     
-    # ✅ DISPLAY CHAT MESSAGES
     for i, message in enumerate(st.session_state.messages):
         if message["role"] == "user":
             st.markdown(f"""
@@ -119,7 +140,6 @@ def chatbot_modal():
             </div>
             """, unsafe_allow_html=True)
     
-    # ✅ CHAT INPUT FORM - ONLY THIS USES st.rerun()
     with st.form("chat_form"):
         prompt = st.text_input(
             "AI를 통해 실시간 정보 검색과 함께 수정을 도와드릴 수 있습니다.",
@@ -185,6 +205,7 @@ def page_surgery_info():
     with col2:  # Place all content in the middle column
 
         tabs = st.tabs(["수술 정보", "출처 보기"])
+        refs: dict = st.session_state.get("consent_references", {})
 
         with tabs[0]:  # 입력 폼 탭 
             with st.form("surgery_info_form"):
@@ -287,12 +308,25 @@ def page_surgery_info():
                     st.rerun()
         with tabs[1]:  # 입력 폼 탭 
             with st.form("surgery_o_form"):
-                # Medical Reference Sources Section
+                
                 st.markdown("### 📚 각 항목별 출처")
-
-                st.divider()
-
-                st.form_submit_button(label="Next Page")
+                if not refs:
+                    st.info("출처 데이터가 없습니다. API 호출 후 다시 확인해주세요.")
+                else:
+                    for sec, items in flatten_refs(refs).items():
+                        with st.expander(sec):
+                            for line in items:
+                                title, _, url = line.partition(" – ")
+                                st.markdown(f"• <a href='{url}' target='_blank'>{title}</a>",
+                                            unsafe_allow_html=True)
+                submitted = st.form_submit_button(
+                    "수술 내용 확정 및 동의서 출력 단계로",
+                    use_container_width=True,
+                    type="primary"
+                )
+                if submitted:
+                    st.session_state.step = 2
+                    st.rerun()
 
     
 

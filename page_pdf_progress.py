@@ -218,7 +218,7 @@ def page_pdf_progress():
     </body></html>
     """
 
-    wkhtml = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # 환경에 맞게 경로 수정
+    wkhtml = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # "/usr/bin/wkhtmltopdf" 
     config = pdfkit.configuration(wkhtmltopdf=wkhtml)
     opts = {
         "page-size": "A4",

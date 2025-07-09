@@ -189,22 +189,25 @@ def create_consent_request(form: dict) -> ConsentGenerateIn:
 
 
 def send_consent_request(req: ConsentGenerateIn) -> APIResponse[ConsentGenerateOut]:
-    url = "http://10.104.198.155:8000/consent"
-    payload = req.model_dump(mode="json", by_alias=True)
+    url = "https://api.surgi-form.com/consent"      # ① 실제 엔드포인트
     try:
-        r = requests.post(url, json=payload, timeout=60)
-        if r.status_code == 200:
+        r = requests.post(
+            url,
+            json=req.model_dump(mode="json", by_alias=True),
+            timeout=(15, 60)                          # ② 연결 5 초·응답 60 초
+        )
+
+        if r.ok:                                     # ③ 200–299
             return APIResponse(
                 success=True,
                 message="동의서가 성공적으로 생성되었습니다",
                 data=ConsentGenerateOut.model_validate(r.json()),
             )
-        return APIResponse(
-            success=False, message=f"API 오류: {r.status_code}", errors=[r.text]
-        )
-    except Exception as e:
-        return APIResponse(success=False, message="요청 실패", errors=[str(e)])
-
+        return APIResponse(success=False,
+                           message=f"API 오류: {r.status_code}",
+                           errors=[r.text])
+    except requests.exceptions.RequestException as e:
+        return APIResponse(success=False, message="네트워크 오류", errors=[str(e)])
 
 def store_consent_to_session(resp: APIResponse[ConsentGenerateOut]) -> None:
     if not (resp.success and resp.data):
@@ -354,6 +357,8 @@ def page_basic_info() -> None:
             if possum_btn:
                 # 실제 계산 로직은 별도 페이지/모달에서 처리한다고 가정
                 st.session_state.navigate_to_possum = True
+                st.session_state.show_possum = True
+                
 
             if st.session_state.get("possum_results"):
                 st.markdown("**POSSUM 결과**")
@@ -429,16 +434,18 @@ def page_basic_info() -> None:
         }
 
         api_resp = send_consent_request(create_consent_request(form))
+        
+        st.subheader("🔍 Raw response from /consent")
+        st.json(api_resp.model_dump())
+        
+        st.subheader("📝 Form payload you just submitted")
+        st.json(st.session_state.get("form_data", {}))
+
         if api_resp.success:
             st.success(api_resp.message)
             store_consent_to_session(api_resp)
             st.session_state.step = 1
-            st.experimental_rerun()
         else:
             st.error(api_resp.message)
             for e in api_resp.errors or []:
                 st.error(e)
-
-# ──────────────────────────────
-if __name__ == "__main__":
-    page_basic_info()
