@@ -355,6 +355,7 @@ def page_confirmation():
             if save_all_canvas_data():
                 st.success("저장 완료! PDF 생성 페이지로 이동합니다.")
                 st.session_state.step =4
+                st.rerun()
             else:
                 st.error("데이터 저장에 실패했습니다. 다시 시도해 주세요.")
 

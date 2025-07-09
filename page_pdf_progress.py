@@ -254,7 +254,7 @@ def page_pdf_progress():
         with open("surgery_consent.pdf", "rb") as f:
             st.download_button("PDF 다운로드", f.read(), "수술동의서.pdf", "application/pdf")
     except Exception as e:
-        st.error(f"PDF 생성 오류: {e}<br>wkhtmltopdf 설치·경로를 확인해 주세요.", unsafe_allow_html=True)
+        st.error(f"PDF 생성 오류: {e}<br>wkhtmltopdf 설치·경로를 확인해 주세요.")
 
 # ──────────────────────────
 if __name__ == "__main__":

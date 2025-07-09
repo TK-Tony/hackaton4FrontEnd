@@ -5,7 +5,39 @@ from enum import Enum
 from typing import List, Optional, TypeVar, Generic
 from pydantic import BaseModel, Field, constr, field_validator, ConfigDict
 from pydantic.generics import GenericModel
-
+def centered_spinner(message="로딩 중입니다..."):
+    spinner_html = f"""
+    <div style="
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: 9999;
+        background: rgba(255,255,255,0.7);
+        display: flex; align-items: center; justify-content: center;
+    ">
+      <div style="text-align:center;">
+        <div class="loader"></div>
+        <div style="margin-top: 1.5rem; font-size: 1.2rem; color: #176d36;">
+            {message}
+        </div>
+      </div>
+    </div>
+    <style>
+    .loader {{
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #176d36;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }}
+    @keyframes spin {{
+      0% {{ transform: rotate(0deg); }}
+      100% {{ transform: rotate(360deg); }}
+    }}
+    </style>
+    """
+    st.markdown(spinner_html, unsafe_allow_html=True)
 # ──────────────────────────────
 # 0. 공통 타입
 # ──────────────────────────────
@@ -246,6 +278,9 @@ for k, v in _defaults.items():
 # 4. 페이지 본문
 # ──────────────────────────────
 def page_basic_info() -> None:
+    if st.session_state.get("show_success"):
+        st.success("동의서가 성공적으로 생성되었습니다.")
+        st.session_state.show_success = False  # 한 번만 보여주고 끄기
     st.set_page_config(layout="wide")
     # 여백 제거 및 container 최대 폭 확장
     st.markdown("""
@@ -455,18 +490,16 @@ def page_basic_info() -> None:
             ],
         }
 
+        centered_spinner("동의서 생성 중입니다... 잠시만 기다려주세요.")
         api_resp = send_consent_request(create_consent_request(form))
-        
-        st.subheader("🔍 Raw response from /consent")
-        st.json(api_resp.model_dump())
-        
-        st.subheader("📝 Form payload you just submitted")
-        st.json(st.session_state.get("form_data", {}))
+
 
         if api_resp.success:
-            st.success(api_resp.message)
             store_consent_to_session(api_resp)
             st.session_state.step = 2
+            st.session_state.show_success = True 
+            st.rerun()
+
         else:
             st.error(api_resp.message)
             for e in api_resp.errors or []:
