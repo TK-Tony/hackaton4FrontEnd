@@ -337,7 +337,7 @@ def page_confirmation():
         if st.button("수술 동의서 PDF 출력하기"):
             if save_all_canvas_data():
                 st.success("저장 완료! PDF 생성 페이지로 이동합니다.")
-                st.session_state.step =3
+                st.session_state.step =4
             else:
                 st.error("데이터 저장에 실패했습니다. 다시 시도해 주세요.")
 

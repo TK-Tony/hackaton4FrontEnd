@@ -444,7 +444,7 @@ def page_basic_info() -> None:
         if api_resp.success:
             st.success(api_resp.message)
             store_consent_to_session(api_resp)
-            st.session_state.step = 1
+            st.session_state.step = 2
         else:
             st.error(api_resp.message)
             for e in api_resp.errors or []:

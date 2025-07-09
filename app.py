@@ -14,9 +14,10 @@ if "show_possum" not in st.session_state:
     st.session_state.show_possum = False
 # Initialize session state
 if "step" not in st.session_state:
-    st.session_state.step = -1  # -1 for main page
+    st.session_state.step = 0  # -1 for main page
 
 STEP_LABELS = [
+    "Main",
     "Basic Information",
     "Surgery Information",
     "Confirmation",
@@ -24,6 +25,7 @@ STEP_LABELS = [
 ]
 
 PAGE_FUNCS = [
+    page_main,
     page_basic_info,
     page_surgery_info,
     page_confirmation,
@@ -37,20 +39,22 @@ render_header()
 
 if st.session_state.show_possum:
     possum_main()  # Show the POSSUM calculator
-elif st.session_state.step == 3:  # PDF 생성 단계
+if st.session_state.step == 4:  # PDF 생성 단계
     page_pdf_progress()
+
+if st.session_state.step == 0:
+    if page_main():
+        st.session_state.step = 1
+        st.rerun()            
+    st.stop()                 
 else:
-    # Your existing stepper logic
-    if st.session_state.step == -1:
-        if page_main():  
-            st.session_state.step = 0
-            st.rerun()
-        st.stop()
-    else:
-        st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
-        val = stx.stepper_bar(steps=STEP_LABELS, lock_sequence=False)
-        if val != st.session_state.step:
-            st.session_state.step = val
-            st.markdown("<script>window.scrollTo(0, 0);</script>", unsafe_allow_html=True)
-            st.rerun()
-        PAGE_FUNCS[st.session_state.step]()
+    val = stx.stepper_bar(
+        steps=STEP_LABELS[1:], 
+        lock_sequence=False
+    )
+    val += 1
+    if val != st.session_state.step:
+        st.session_state.step = val
+        st.rerun()
+
+    PAGE_FUNCS[st.session_state.step]()
