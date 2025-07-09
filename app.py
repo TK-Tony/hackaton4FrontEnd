@@ -39,8 +39,8 @@ render_header()
 
 if st.session_state.show_possum:
     possum_main()  # Show the POSSUM calculator
-if st.session_state.step == 4:  # PDF 생성 단계
-    page_pdf_progress()
+# if st.session_state.step == 4:  # PDF 생성 단계
+#     page_pdf_progress()
 
 if st.session_state.step == 0:
     if page_main():
@@ -48,6 +48,7 @@ if st.session_state.step == 0:
         st.rerun()            
     st.stop()                 
 else:
+    st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
     val = stx.stepper_bar(
         steps=STEP_LABELS[1:], 
         lock_sequence=False

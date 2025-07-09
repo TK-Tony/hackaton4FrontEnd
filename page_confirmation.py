@@ -139,6 +139,23 @@ def save_all_canvas_data() -> bool:
 # 5. Main page
 # ──────────────────────────────
 def page_confirmation():
+    # 여백 제거 및 container 최대 폭 확장
+    st.markdown("""
+        <style>
+        .block-container {
+            padding: 0rem;
+            max-width: 100% !important;
+            padding-bottom: 2rem;
+        }
+        .form-wrapper {
+            max-width: 800px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 0rem;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
     st.markdown("""
         <h2 style='text-align:center; color:#176d36; padding-top:0px; margin: 0 0 20px 0'>
         앞서 작성한 모든 정보입니다. 환자 숙지 후 서명을 부탁드립니다.

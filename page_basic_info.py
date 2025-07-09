@@ -247,9 +247,25 @@ for k, v in _defaults.items():
 # ──────────────────────────────
 def page_basic_info() -> None:
     st.set_page_config(layout="wide")
+    # 여백 제거 및 container 최대 폭 확장
+    st.markdown("""
+        <style>
+        .block-container {
+            padding: 0rem;
+            max-width: 100% !important;
+            padding-bottom: 2rem;
+        }
+        .form-wrapper {
+            max-width: 800px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 0rem;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     st.markdown(
-        "<h2 style='text-align:center;color:#176d36;'>Reference "
+        "<h2 style='text-align:center;color:#176d36;padding-top:0px; '>Reference "
         "Textbook 조회를 위한 기본 정보를 입력해주세요.</h2>",
         unsafe_allow_html=True,
     )
@@ -376,7 +392,11 @@ def page_basic_info() -> None:
 
         etc = st.text_area("기타")
 
-        submit_btn = st.form_submit_button("수술 동의서 생성하기")
+        col1, col2, col3 = st.columns([1.5, 1, 1])
+        with col2:
+            st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+            submit_btn = st.form_submit_button("수술 동의서 생성하기")
+            st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
 
     # ── 제출 처리
     if submit_btn:

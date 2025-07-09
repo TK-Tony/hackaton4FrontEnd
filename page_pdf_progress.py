@@ -193,6 +193,23 @@ def collect_all_content() -> str:
 # 3. PDF 생성 진행 페이지
 # ──────────────────────────
 def page_pdf_progress():
+    # 여백 제거 및 container 최대 폭 확장
+    st.markdown("""
+        <style>
+        .block-container {
+            padding: 0rem;
+            max-width: 100% !important;
+            padding-bottom: 2rem;
+        }
+        .form-wrapper {
+            max-width: 800px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 0rem;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     st.markdown(
         "<h2 style='text-align:center; color:#176d36;'>PDF 생성이 완료되었습니다.<br>항상 환자를 위한 헌신에 감사드립니다.</h2>",
         unsafe_allow_html=True,

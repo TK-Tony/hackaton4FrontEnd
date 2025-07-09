@@ -1,0 +1,23 @@
+{
+  "patient_info": {},
+  "form_data": {},
+  "session_consent_data": {
+    "no_surgery_prognosis": "",
+    "alternative_methods": "",
+    "purpose": "",
+    "method_1": "",
+    "method_2": "",
+    "method_3": "",
+    "method_4": "",
+    "method_5": "",
+    "complications": "",
+    "preop_care": "",
+    "mortality_risk": ""
+  },
+  "canvas_counts": {
+    "canvas_count_signature": 1
+  },
+  "canvas_drawings": {},
+  "canvas_images": {},
+  "timestamp": "2025-07-10T01:58:42.936720"
+}
