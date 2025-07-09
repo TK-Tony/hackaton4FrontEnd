@@ -203,7 +203,7 @@ def page_pdf_progress():
     <!DOCTYPE html><html lang="ko"><head>
       <meta charset="UTF-8"><title>수술 동의서</title>
       <style>
-        body{{font-family:'Malgun Gothic','맑은 고딕',Arial,sans-serif;line-height:1.6;margin:20px}}
+        body{{font-family:'Nanum Gothic','Noto Sans CJK KR','Malgun Gothic','맑은 고딕',Arial,sans-serif;line-height:1.6;margin:20px}}
         table{{border-collapse:collapse;width:100%;margin-bottom:15px}}
         th,td{{border:1px solid #aaa;padding:7px;text-align:left}}
         th{{background:#f5f5f5;font-weight:bold}}
@@ -218,7 +218,7 @@ def page_pdf_progress():
     </body></html>
     """
 
-    #wkhtml = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # "/usr/bin/wkhtmltopdf" 
+    # Linux용 wkhtmltopdf 경로 사용
     config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
     opts = {
         "page-size": "A4",

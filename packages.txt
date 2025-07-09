@@ -1,1 +1,4 @@
 wkhtmltopdf
+fonts-nanum
+fonts-noto-cjk
+fonts-unfonts-core
