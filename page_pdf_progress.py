@@ -218,8 +218,8 @@ def page_pdf_progress():
     </body></html>
     """
 
-    wkhtml = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # "/usr/bin/wkhtmltopdf" 
-    config = pdfkit.configuration(wkhtmltopdf=wkhtml)
+    #wkhtml = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # "/usr/bin/wkhtmltopdf" 
+    config = pdfkit.configuration(wkhtmltopdf='./bin/wkhtmltopdf')
     opts = {
         "page-size": "A4",
         "encoding": "UTF-8",
