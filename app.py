@@ -40,7 +40,7 @@ render_header()
 if st.session_state.show_possum:
     possum_main()  # Show the POSSUM calculator
 if st.session_state.step == 4:  # PDF 생성 단계
-     page_pdf_progress()
+    page_pdf_progress()
 
 if st.session_state.step == 0:
     if page_main():

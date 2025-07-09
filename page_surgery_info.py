@@ -25,7 +25,7 @@ def initialize_session_state() -> None:
 # Initialize Groq client
 @st.cache_resource
 def get_groq_client():
-    api_key = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+    api_key = st.secrets["GROQ_API_KEY"] or os.getenv("GROQ_API_KEY")
     if not api_key:
         st.error("Groq API key not found. Please set GROQ_API_KEY in secrets or environment variables.")
         return None

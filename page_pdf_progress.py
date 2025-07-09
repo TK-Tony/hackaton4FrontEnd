@@ -252,10 +252,12 @@ def page_pdf_progress():
         pdfkit.from_string(html_doc, "surgery_consent.pdf", configuration=config, options=opts)
         st.success("PDF가 성공적으로 생성되었습니다.")
         with open("surgery_consent.pdf", "rb") as f:
-            st.download_button("PDF 다운로드", f.read(), "수술동의서.pdf", "application/pdf")
+            st.download_button(
+                    label="PDF 다운로드",
+                    data=f.read(),
+                    file_name="수술동의서.pdf",
+                    mime="application/pdf",
+                    key=f"download_pdf_{st.session_state.get('patient_info', {}).get('등록번호', '')}_{datetime.now().isoformat()}"
+                )
     except Exception as e:
         st.error(f"PDF 생성 오류: {e}<br>wkhtmltopdf 설치·경로를 확인해 주세요.")
-
-# ──────────────────────────
-if __name__ == "__main__":
-    page_pdf_progress()
