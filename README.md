@@ -1,9 +1,3 @@
-You can download all relevant libraries through this command: 
-
-pip install -r requirements.txt
-
----
-
 # Team4 – SurgiForm
 
 안녕하세요, 저희는 서울대학교 의과대학 경제경영학회 MD Winners가 주최한 **2025 PIEthon 3.0 해커톤**에 참여한 **Team4**입니다.  
@@ -36,7 +30,17 @@ pip install -r requirements.txt
    - 수술 설명 시 필요에 따라 **캔버스** 추가 가능  
    - 추후 **녹음 기능** 계획 중  
 5. **수술동의서 PDF 출력 페이지**  
-   - 확정된 동의서를 **PDF** 형식으로 변환·저장  
+   - 확정된 동의서를 **PDF** 형식으로 변환·저장
+
+---
+
+## 🎞️ 시연 링크
+
+시연 링크
+> https://tk-tony-hackaton4frontend-app-dd-sqvxu9.streamlit.app/
+
+다운로드 후 시연하고 싶으시다면
+> pip install -r requirements.txt 를 통해 관련 라이브러리를 다운받고 streamlit run app.py 를 통해 실행하세요.
 
 ---
 
@@ -93,4 +97,7 @@ Reference 기반의 수술 정보를 생성하기 위해, 수술과 환자에 �
 
 ---
 
+### cf. 시연시 주의사항
+1. Basic Information 페이지에서 'Possum 점수 계산'을 먼저 한 후에 기타 정보들을 입력하시기 바랍니다. 정보가 날아갈 수 있습니다.
+2. 각 페이지 하단에 있는 "버튼을 누른 후, 완료되었다는 메시지가 뜨면" 페이지 상단에 있는 "Stepper를 이용"하여 다음 단계로 넘어가시기 바랍니다.
 > 앞으로도 지속적인 업데이트와 후속 개발을 통해 완성도를 높여 나가겠습니다!
